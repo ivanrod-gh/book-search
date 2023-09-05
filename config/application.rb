@@ -18,5 +18,22 @@ module BookSearch
     #
     # config.time_zone = "Central Time (US & Canada)"
     # config.eager_load_paths << Rails.root.join("extras")
+
+    config.autoload_paths << "#{Rails.root}/app/services"
+
+    # Remove ActionMailbox and ActiveStorage from routes
+    initializer(:remove_action_mailbox_and_activestorage_routes, after: :add_routing_paths) { |app|
+      app.routes_reloader.paths.delete_if {|path| path =~ /activestorage/}
+      app.routes_reloader.paths.delete_if {|path| path =~ /actionmailbox/ }
+    }
+
+    config.generators do |g|
+      g.test_framework :rspec,
+                       request_specs: false,
+                       controller_specs: true,
+                       view_specs: false,
+                       routing_specs: false,
+                       helper_specs: false
+    end
   end
 end

@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="windows-1251"?><!DOCTYPE yml_catalog SYSTEM "shops.dtd">
+<yml_catalog date="2023-08-09 10:18:00"><shop>
+<name>LitRes.ru</name>
+<company>ООО ЛитРес</company>
+<url>https://www.litres.ru/</url>
+<currencies>
+<currency id="RUR" rate="1"/>
+<currency id="USD" rate="CBRF"/>
+<currency id="EUR" rate="CBRF"/>
+<currency id="PLN" rate="CBRF"/>
+</currencies>
+<categories><category id="5075" parentId="5004">героическая фантастика</category><category id="5226" parentId="5018">книги про волшебников</category>
+<offers>
+<offer id="121281" type="book" available="true"><url>https://www.litres.ru/book/genri-layon-oldi/rubezh-121281/</url><price>79.99</price><currencyId>RUR</currencyId><categoryId>5075</categoryId><picture>https://cv8.litres.ru/pub/c/cover_415/121281.jpg</picture><author>Марина и Сергей Дяченко</author><name>Рубеж</name><publisher>Автор</publisher><series></series><year>1999</year><ISBN>5-699-06024-3</ISBN><description> …И вот они встретились: заклятый герой-двоедушец и чернокнижник Мацапура-Коложанский, отважная панна сотникова и мститель-убийца Иегуда бен-Иосиф, Блудный Ангел и волшебница Сале Кеваль – а вдобавок еще и новорожденный «чертов сын», будущий то ли Спаситель, то ли Антихрист. Они встретились на своем последнем рубеже, и содрогнулись величественные Малахи, чья плоть – свет, а душа… а души у них нет. 
+ И вот они встретились: «философский боевик» Г.Л.Одди, тонкая лирика М. и С. Дяченко, криптоистория А. Валентинова – звездный состав авторов. Малороссия гоголевских времен, древне иудейское мистическое учение Каббала, экзотика фэнтезийных земель и реальность горящих хат под Полтавою; и человек, обыкновенный человек, который стремится найти свою судьбу и свое достоинство, желая выйти за границы дозволенного, – это все «Рубеж». 
+</description><downloadable>true</downloadable><age>12</age><lang>ru</lang><param name="Форматы">FB2.ZIP,EPUB,TXT.ZIP,RTF.ZIP,A4.PDF,A6.PDF,MOBI.PRC,TXT</param><litres_isbn>978-5-425-03439-7</litres_isbn><genres_list>5075,5226</genres_list><abonement>false</abonement></offer>
+</offers></shop></yml_catalog>
