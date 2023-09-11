@@ -44,16 +44,14 @@ RSpec.describe Services::PartnerDBParse do
   describe 'with partner db (detailed) file' do
     it 'do nothing if no file exists' do
       Services::PartnerDBParse.new(task_detailed_db).call
-      expect(Book.count).to eq 0
-      expect(Genre.count).to eq 0
-      expect(BookGenre.count).to eq 0
+      expect(Author.count).to eq 0
+      expect(BookAuthor.count).to eq 0
     end
 
     it 'do nothing if where was no previous simple db parsing' do
       perform_detailed_parsing_call
-      expect(Book.count).to eq 0
-      expect(Genre.count).to eq 0
-      expect(BookGenre.count).to eq 0
+      expect(Author.count).to eq 0
+      expect(BookAuthor.count).to eq 0
     end
 
     describe 'if where was previous simple db parsing' do
@@ -72,7 +70,7 @@ RSpec.describe Services::PartnerDBParse do
         expect(Book.first.date).to eq '2007-07-25'
       end
 
-      it 'add specifing first author data from parsing' do
+      it 'add author data from parsing' do
         expect(Author.first.int_id).to eq 'e00dfc87-2a80-102a-9ae1-2dfe723fe7c7'
         expect(Author.first.name).to eq 'Марина и Сергей Дяченко'
         expect(Author.first.url).to eq 'marina-i-sergey-dyachenko/'

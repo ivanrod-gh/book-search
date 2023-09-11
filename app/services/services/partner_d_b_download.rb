@@ -10,16 +10,20 @@ module Services
     end
 
     def call
+      download_file
+      finish_conditions_satisfied?
+    end
+
+    private
+
+    def download_file
       # `wget -O #{@file_name} #{@address}` # _TEST_LIMIT_ !!!
       if @task_name == 'partner_db_download_simple'
         `cp /media/sf_Shared/partners_utf.yml.gz shared/partner_db/partners_utf.yml.gz`
       elsif @task_name == 'partner_db_download_detailed'
         `cp /media/sf_Shared/detailed_data.xml.gz shared/partner_db/detailed_data.xml.gz`
       end
-      finish_conditions_satisfied?
     end
-
-    private
 
     def finish_conditions_satisfied?
       if File.exist?(@file_name)
