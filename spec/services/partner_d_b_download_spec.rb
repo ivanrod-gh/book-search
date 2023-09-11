@@ -1,12 +1,36 @@
 require 'rails_helper'
 
 RSpec.describe Services::PartnerDBDownload do
-  let(:service) { double('Services::PartnerDBDownload') }
-  let(:task) { create(:worker_task, :download_simple) }
+  let(:task_simple_db) { create(:worker_task, :download_simple) }
+  let(:task_detailed_db) { create(:worker_task, :download_detailed) }
+  let(:downloaded_simple_file) { File.open(JSON.parse(task_simple_db.data)['file_name'], 'w') }
+  let(:downloaded_detailed_file) { File.open(JSON.parse(task_detailed_db.data)['file_name'], 'w') }
 
-  it 'downloads partner db' do
-    expect(Services::PartnerDBDownload).to receive(:new).with(task).and_return(service)
-    expect(service).to receive(:call)
-    Services::PartnerDBDownload.new(task).call
+  describe 'with partner db (simple) file' do
+    it 'downloads file if available' do
+      allow_any_instance_of(Services::PartnerDBDownload).to receive(:download_file).and_return(downloaded_simple_file)
+      expect(File.exist?(JSON.parse(task_simple_db.data)['file_name'])).to eq true
+      Services::PartnerDBDownload.new(task_simple_db).call
+      File.delete(JSON.parse(task_simple_db.data)['file_name'])
+    end
+
+    it 'does nothing if file download is unavailable' do
+      allow_any_instance_of(Services::PartnerDBDownload).to receive(:download_file)
+      expect(File.exist?(JSON.parse(task_simple_db.data)['file_name'])).to eq false
+    end
+  end
+
+  describe 'with partner db (detailed) file' do
+    it 'downloads file if available' do
+      allow_any_instance_of(Services::PartnerDBDownload).to receive(:download_file).and_return(downloaded_detailed_file)
+      expect(File.exist?(JSON.parse(task_detailed_db.data)['file_name'])).to eq true
+      Services::PartnerDBDownload.new(task_detailed_db).call
+      File.delete(JSON.parse(task_detailed_db.data)['file_name'])
+    end
+
+    it 'does nothing if file download is unavailable' do
+      allow_any_instance_of(Services::PartnerDBDownload).to receive(:download_file)
+      expect(File.exist?(JSON.parse(task_detailed_db.data)['file_name'])).to eq false
+    end
   end
 end
