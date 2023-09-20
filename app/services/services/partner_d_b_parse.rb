@@ -149,8 +149,7 @@ module Services
     end
 
     def lack_of_critical_detailed_data(art)
-      return true if art['int_id'].blank? || art['added'].blank? || art.at_css('book-title').blank? #||
-                    # art.at_css('book-title').content.empty?
+      return true if art['int_id'].blank? || art['added'].blank? || art.at_css('book-title').blank?
     end
 
     def gather_detailed_book_data(art)
@@ -164,13 +163,18 @@ module Services
 
     def book_initial_data(art, book_data)
       book_data['int_id'] = art['int_id']
+      book_data['writing_year'] = writing_year(art)
       book_data['date'] = art['added'].to_date
+      book_data['name'] = extract_data(art, 'book-title', 0)
       book_data['authors'] = []
       art.css('title-info author').each do |author|
         book_data['authors'] << { 'int_id' => author.css('id')[0].content }
       end
-      book_data['name'] = extract_data(art, 'book-title', 0)
       book_data
+    end
+
+    def writing_year(art)
+      (year = extract_data(art, 'title-info date', 0).to_i).positive? ? year : nil
     end
 
     def book_authors_data(art, book_data)
@@ -224,7 +228,7 @@ module Services
     end
 
     def update_book(book, book_data)
-      book.update!(date: book_data['date'], name: book_data['name'])
+      book.update!(writing_year: book_data['writing_year'], date: book_data['date'], name: book_data['name'])
     end
 
     def manage_authors(book_data)

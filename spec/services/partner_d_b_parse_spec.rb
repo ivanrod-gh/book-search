@@ -68,6 +68,7 @@ RSpec.describe Services::PartnerDBParse do
       it 'add additional book data from parsing' do
         expect(Book.first.name).to eq 'Рубеж'
         expect(Book.first.date).to eq '2007-07-25'
+        expect(Book.first.writing_year).to eq 1999
       end
 
       it 'add author data from parsing' do
@@ -81,6 +82,17 @@ RSpec.describe Services::PartnerDBParse do
         expect(Author.last.name).to eq 'Андрей Валентинов'
         expect(Author.last.url).to eq 'andrey-valentinov/'
       end
+    end
+  end
+
+  describe 'respond state to caller' do
+    it 'return false when execution failed' do
+      expect(Services::PartnerDBParse.new(task_simple_db).call).to eq false
+    end
+
+    it 'return true when execution successful' do
+      `cp spec/files/partners_utf.yml #{JSON.parse(task_simple_db.data)['file_name']}`
+      expect(Services::PartnerDBParse.new(task_simple_db).call).to eq true
     end
   end
 end

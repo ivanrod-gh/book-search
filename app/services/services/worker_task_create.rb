@@ -29,6 +29,11 @@ module Services
       end
     end
 
+    def remote_page_parse(book, data = {})
+      data['int_id'] = book.int_id
+      WorkerTask.create(name: __method__.to_s, data: data.to_json)
+    end
+
     private
 
     def partner_db_download_simple(data = {})

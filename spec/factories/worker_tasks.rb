@@ -52,6 +52,12 @@ FactoryBot.define do
       task_data['book_key'] = 'art'
       data { task_data.to_json }
     end
+
+    trait :remote_parse do
+      name { 'remote_page_parse' }
+      task_data = {}
+      task_data['int_id'] = '121281'
+      data { task_data.to_json }
+    end
   end
 end
-

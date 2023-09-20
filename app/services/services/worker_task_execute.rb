@@ -8,7 +8,8 @@ module Services
       'partner_db_unzip_simple' => 'PartnerDBUnzip',
       'partner_db_unzip_detailed' => 'PartnerDBUnzip',
       'partner_db_parse_segments_simple' => 'PartnerDBParse',
-      'partner_db_parse_segments_detailed' => 'PartnerDBParse'
+      'partner_db_parse_segments_detailed' => 'PartnerDBParse',
+      'remote_page_parse' => 'RemotePageParse'
     }.freeze
 
     attr_reader :task
@@ -20,26 +21,31 @@ module Services
     def call
       return false unless start_conditions_satisfied?
 
-      Rails.logger.info "Worker started [#{task.name}] task"
-      respond = Services.const_get(TASKS_SERVICES[task.name]).new(task).call
-      if respond
-        task.destroy
-        Rails.logger.info "Task successfully completed, removing task from worker_tasks table"
-      else
-        Rails.logger.info "Task execution failed"
-      end
+      check_state(Services.const_get(TASKS_SERVICES[task.name]).new(task).call)
     end
 
     private
 
     def start_conditions_satisfied?
       if task
-        Rails.logger.info "Found task [#{task.name}], executing"
-        true
+        logger_and_respond("Found task [#{task.name}], executing")
       else
-        Rails.logger.info "Worker manager reporting: OK - all tasks completed"
-        false
+        logger_and_respond('Worker task execution failed - no task found', false)
       end
+    end
+
+    def check_state(respond)
+      if respond
+        task.destroy
+        logger_and_respond('Worker task successfully completed, removing task from worker_tasks table')
+      else
+        logger_and_respond('Worker task execution failed', false)
+      end
+    end
+
+    def logger_and_respond(message, state = true)
+      Rails.logger.info message
+      state
     end
   end
 end

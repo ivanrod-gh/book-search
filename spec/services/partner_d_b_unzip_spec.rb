@@ -31,4 +31,16 @@ RSpec.describe Services::PartnerDBUnzip do
       File.delete(JSON.parse(task_detailed_db.data)['file_name'])
     end
   end
+
+  describe 'respond state to caller' do
+    it 'return false when execution failed' do
+      expect(Services::PartnerDBUnzip.new(task_simple_db).call).to eq false
+    end
+
+    it 'return true when execution successful' do
+      `cp spec/files/partners_utf.yml.gz #{JSON.parse(task_simple_db.data)['archive_name']}`
+      expect(Services::PartnerDBUnzip.new(task_simple_db).call).to eq true
+      File.delete(JSON.parse(task_simple_db.data)['file_name'])
+    end
+  end
 end
