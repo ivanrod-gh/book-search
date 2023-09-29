@@ -30,7 +30,14 @@ gem 'bootsnap', '>= 1.4.4', require: false
 
 # Use slim template engine
 gem 'slim-rails', '~> 3.6.0'
+# NET wrapper
 gem 'open-uri'
+# Full-text search
+gem 'mysql2', '~> 0.4.0'
+gem 'thinking-sphinx', '~> 5.5.0'
+# Create and fill application response
+gem 'active_model_serializers', '~> 0.10.13'
+gem 'oj'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
@@ -54,10 +61,16 @@ group :test do
   gem 'selenium-webdriver', '>= 4.0.0.rc1'
   # Easy installation and use of web drivers to run system tests with browsers
   gem 'webdrivers'
+  # Tests engine
   gem 'rspec-rails', '~> 6.0.0'
+  # Tests factories
   gem 'factory_bot_rails', '~> 6.2.0'
+  # Tests matchers
   gem 'shoulda-matchers', '~> 5.0'
+  # Controllers testing
   gem 'rails-controller-testing'
+  # Full-text search DB cleaner
+  gem 'database_cleaner-active_record', '~> 2.1.0'
   gem 'launchy', '~> 2.5.0'
 end
 

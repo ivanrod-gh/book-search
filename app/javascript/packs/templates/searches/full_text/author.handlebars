@@ -1,0 +1,7 @@
+<div class="result-author-{{author.id}}">
+  <div class="row">
+    <div class="col-sm-2"></div>
+    <div class="col-sm-4"><a href="{{#if author.url}}https://www.litres.ru/author/{{author.url}}{{else}}#{{/if}}">{{#if author.name}}{{author.name}}{{else}}-{{/if}}</a></div>
+    <div class="col-sm-1" align='center'>{{#if author.books}}{{author.books}}{{else}}-{{/if}}</div>
+  </div>
+</div>

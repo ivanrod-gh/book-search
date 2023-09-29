@@ -39,6 +39,11 @@ GEM
       erubi (~> 1.4)
       rails-dom-testing (~> 2.0)
       rails-html-sanitizer (~> 1.1, >= 1.2.0)
+    active_model_serializers (0.10.13)
+      actionpack (>= 4.1, < 7.1)
+      activemodel (>= 4.1, < 7.1)
+      case_transform (>= 0.2)
+      jsonapi-renderer (>= 0.1.1.beta1, < 0.3)
     activejob (6.1.7.4)
       activesupport (= 6.1.7.4)
       globalid (>= 0.3.6)
@@ -76,8 +81,14 @@ GEM
       rack-test (>= 0.6.3)
       regexp_parser (>= 1.5, < 3.0)
       xpath (~> 3.2)
+    case_transform (0.2)
+      activesupport
     concurrent-ruby (1.2.2)
     crass (1.0.6)
+    database_cleaner-active_record (2.1.0)
+      activerecord (>= 5.a)
+      database_cleaner-core (~> 2.0.0)
+    database_cleaner-core (2.0.1)
     date (3.3.3)
     diff-lcs (1.5.0)
     erubi (1.12.0)
@@ -91,9 +102,13 @@ GEM
       activesupport (>= 5.0)
     i18n (1.14.1)
       concurrent-ruby (~> 1.0)
+    innertube (1.1.0)
     jbuilder (2.11.5)
       actionview (>= 5.0.0)
       activesupport (>= 5.0.0)
+    joiner (0.6.0)
+      activerecord (>= 6.1.0)
+    jsonapi-renderer (0.2.2)
     launchy (2.5.2)
       addressable (~> 2.8)
     listen (3.8.0)
@@ -110,9 +125,11 @@ GEM
     marcel (1.0.2)
     matrix (0.4.2)
     method_source (1.0.0)
+    middleware (0.1.0)
     mini_mime (1.1.5)
     minitest (5.19.0)
     msgpack (1.7.2)
+    mysql2 (0.4.10)
     net-imap (0.3.7)
       date
       net-protocol
@@ -125,6 +142,7 @@ GEM
     nio4r (2.5.9)
     nokogiri (1.15.3-x86_64-linux)
       racc (~> 1.4)
+    oj (3.16.1)
     open-uri (0.1.0)
       stringio
       time
@@ -179,6 +197,7 @@ GEM
       ffi (~> 1.0)
     regexp_parser (2.8.1)
     rexml (3.2.6)
+    riddle (2.4.3)
     rspec-core (3.12.2)
       rspec-support (~> 3.12.0)
     rspec-expectations (3.12.3)
@@ -231,6 +250,13 @@ GEM
       sprockets (>= 3.0.0)
     stringio (3.0.1)
     temple (0.10.2)
+    thinking-sphinx (5.5.1)
+      activerecord (>= 4.2.0)
+      builder (>= 2.1.2)
+      innertube (>= 1.0.2)
+      joiner (>= 0.3.4)
+      middleware (>= 0.1.0)
+      riddle (~> 2.3)
     thor (1.2.2)
     tilt (2.2.0)
     time (0.1.0)
@@ -268,13 +294,17 @@ PLATFORMS
   x86_64-linux
 
 DEPENDENCIES
+  active_model_serializers (~> 0.10.13)
   bootsnap (>= 1.4.4)
   byebug
   capybara (>= 3.26)
+  database_cleaner-active_record (~> 2.1.0)
   factory_bot_rails (~> 6.2.0)
   jbuilder (~> 2.7)
   launchy (~> 2.5.0)
   listen (~> 3.3)
+  mysql2 (~> 0.4.0)
+  oj
   open-uri
   pg (~> 1.1)
   puma (~> 5.0)
@@ -287,6 +317,7 @@ DEPENDENCIES
   shoulda-matchers (~> 5.0)
   slim-rails (~> 3.6.0)
   spring
+  thinking-sphinx (~> 5.5.0)
   turbolinks (~> 5)
   tzinfo-data
   web-console (>= 4.1.0)

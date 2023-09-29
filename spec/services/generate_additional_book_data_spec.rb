@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe Services::GenerateAdditionalBookData do
-  let(:book) { create(:book) }
+  let(:book) { create(:book, :date_added_2009) }
   # Необходимо, т.к. тестовая среда уничтожает данные Rating и замороженный хэш начинает указывать на пустое место
   let(:reinitialize_rating_instances_constant) do
     Rating::INSTANCES = {

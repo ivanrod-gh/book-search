@@ -1,0 +1,18 @@
+<div class="result-book-{{book.id}}">
+  <div class="row">
+    <div class="col-sm-2"></div>
+    <div class="col-sm-4"><a href="{{#if book.int_id}}http://www.litres.ru/pages/biblio_book/?art={{book.int_id}}{{else}}#{{/if}}">{{#if book.name}}{{book.name}}{{else}}-{{/if}}</a></div>
+    <div class="col-sm-1" align='center'>{{#if book.writing_year}}{{book.writing_year}}{{else}}-{{/if}}</div>
+    <div class="col-sm-3">
+      {{#each book.authors}}
+        <div>
+          <a href="{{#if this.url}}https://www.litres.ru/author/{{this.url}}{{else}}#{{/if}}">{{#if this.name}}{{this.name}}{{else}}-{{/if}}</a>
+        </div>
+      {{/each}}
+    </div>
+    <div class="col-sm-2"></div>
+  </div>
+</div>
+
+
+

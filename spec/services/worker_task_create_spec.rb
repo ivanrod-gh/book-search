@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe Services::WorkerTaskCreate do
-  let(:book) { create(:book) }
+  let(:book) { create(:book, :frontier) }
 
   it 'creates partner_db_download_simple task with data' do
     expect{ subject.partner_db_download('simple') }.to change(WorkerTask, :count).by(1)
