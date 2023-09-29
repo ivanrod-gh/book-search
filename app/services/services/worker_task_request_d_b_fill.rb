@@ -12,16 +12,18 @@ module Services
     ].freeze
 
     def call
-      Services::WorkerTaskCreate.new.partner_db_download('simple')
-      Services::WorkerTaskCreate.new.partner_db_unzip('simple')
-      Services::WorkerTaskCreate.new.partner_db_parse_segments('simple')
-      Services::WorkerTaskCreate.new.partner_db_download('detailed')
-      Services::WorkerTaskCreate.new.partner_db_unzip('detailed')
-      Services::WorkerTaskCreate.new.partner_db_parse_segments('detailed')
+      create_tasks_for_partner_db('simple')
+      create_tasks_for_partner_db('detailed')
       check_tasks
     end
 
     private
+
+    def create_tasks_for_partner_db(type)
+      Services::WorkerTaskCreate.new.partner_db_download(type)
+      Services::WorkerTaskCreate.new.partner_db_unzip(type)
+      Services::WorkerTaskCreate.new.partner_db_parse_segments(type)
+    end
 
     def check_tasks
       FILL_APP_D_B_TASKS.each do |task_name|
