@@ -38,3 +38,7 @@ yarn-debug.log*
 config/database.yml
 
 /shared/*
+
+# Ignore sphinx db and secret files
+config/*.sphinx.conf
+db/sphinx

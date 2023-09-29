@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe Services::RemotePageParse do
-  let!(:book) { create(:book) }
+  let!(:book) { create(:book, :frontier) }
   let(:task) { create(:worker_task, :remote_parse) }
   let(:nokigiri_bad_downloaded_page) { Nokogiri::HTML(File.open('spec/files/page_bad.html')) }
   let(:nokigiri_good_downloaded_page) { Nokogiri::HTML(File.open('spec/files/page_good.html')) }

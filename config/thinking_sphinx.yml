@@ -1,0 +1,7 @@
+development:
+  min_infix_len: 3
+test:
+  min_infix_len: 3
+  mysql41: 9307
+production:
+  min_infix_len: 3

@@ -13,3 +13,17 @@
  *= require_tree .
  *= require_self
  */
+
+@import "bootstrap/scss/bootstrap";
+
+.hide {
+  display: none;
+}
+
+.warning-main {
+  background-color: #FCF3CF;
+}
+
+.search-view-item-selected {
+  background-color: #94E05B;
+}

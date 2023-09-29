@@ -53,6 +53,7 @@ module Services
       manage_segment_parsing
       @eol_counter = 0
       @segment_index += 1
+      Rails.logger.info "Segment N#{@segment_index} passed"
       @output = (splitted_line[1]).to_s
       sleep(1) # просто некое ограничение на нагрузку процессора
     end
@@ -139,9 +140,11 @@ module Services
     def parse_detailed_db_segment(art)
       return if not_text_type(art) || lack_of_critical_detailed_data(art)
 
+      book = Book.find_by(int_id: art['int_id'])
+      return if not_found_or_with_full_data_already?(book)
+
       book_data = gather_detailed_book_data(art)
-      book = Book.find_by(int_id: book_data['int_id'])
-      manage_book(book, book_data) if book
+      manage_book(book, book_data)
     end
 
     def not_text_type(art)
@@ -150,6 +153,12 @@ module Services
 
     def lack_of_critical_detailed_data(art)
       return true if art['int_id'].blank? || art['added'].blank? || art.at_css('book-title').blank?
+    end
+
+    def not_found_or_with_full_data_already?(book)
+      return true if book.nil?
+
+      book.name.present?
     end
 
     def gather_detailed_book_data(art)
@@ -162,7 +171,6 @@ module Services
     end
 
     def book_initial_data(art, book_data)
-      book_data['int_id'] = art['int_id']
       book_data['writing_year'] = writing_year(art)
       book_data['date'] = art['added'].to_date
       book_data['name'] = extract_data(art, 'book-title', 0)
@@ -174,7 +182,12 @@ module Services
     end
 
     def writing_year(art)
-      (year = extract_data(art, 'title-info date', 0).to_i).positive? ? year : nil
+      year_data = extract_data(art, 'title-info date', 0)
+      year_data =~ /[ -._]/ ? calculdate_year(year_data) : ((year = year_data.to_i.positive?) ? year : nil )
+    end
+
+    def calculdate_year(year_data)
+      (year = year_data.split(/[ -._]/).map(&:to_i).max).positive? ? year : nil
     end
 
     def book_authors_data(art, book_data)
@@ -197,6 +210,7 @@ module Services
       name << extract_data(involved, 'first-name', 0) unless extract_data(involved, 'first-name', 0).empty?
       name << extract_data(involved, 'middle-name', 0) unless extract_data(involved, 'middle-name', 0).empty?
       name << extract_data(involved, 'last-name', 0) unless extract_data(involved, 'last-name', 0).empty?
+      name
     end
 
     def delete_partial_authors(book_data)

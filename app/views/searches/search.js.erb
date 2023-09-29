@@ -1,0 +1,76 @@
+// var someVar = ('<%= @result %>')
+// var someVar = '{"first_name": "John"}'
+// someVar = JSON.parse(someVar)
+// console.log(someVar)
+// console.log(someVar.first_name)
+
+
+// var encodedData = ('<%= @result %>')
+// var decodedData = decode(encodedData);
+// var parsedData = JSON.parse(decodedData)
+
+// console.log(decodedData);
+// console.log(parsedData);
+// console.log(parsedData.id);
+
+// console.log(  ("&lt;img src='myimage.jpg'&gt;").value  )  
+
+// var Data = JSON.parse(decode('<%= @result %>'))
+// console.log(Data);
+
+// ??
+// $('.new-answer').replaceWith($('.blank-new-answer').clone(true).attr('class', 'new-answer'))
+// ??
+
+// OR
+
+//handlebars
+
+// $(comments + '.errors').html(require("../packs/templates/shared/_errors.handlebars")({ resource: data }))
+// $(comments + '.list').append(require("../packs/templates/comments/_comment.handlebars")({ comment: data }))
+
+// data = 12345654321
+// $('.search-result-list').html(require("../packs/templates/answ/search.handlebars")({ inner: data }))
+// $('.search-result-list').html('<p>777777777</p>')
+// const template = require('/home/zsaimont/ruby/book-search/app/javascript/packs/templates/answ/search.handlebars');
+
+
+
+// const Handlebars = require("handlebars");
+// const template = Handlebars.compile("Name: {{name}}");
+// console.log(template({ name: "Nils" }));
+
+// import compiledTemplate from "./template.handlebars";
+
+
+
+
+function decode(str) {
+  var txt = new DOMParser().parseFromString(str, "text/html");
+  return txt.documentElement.textContent;
+}
+
+// 1 ================================================================================================
+// document.querySelector('.test-div').addEventListener('click', makeGreen)
+
+// function makeGreen(event) {
+//   if (event.target.className != "test-div") return
+//   event.preventDefault()
+//   if (Math.floor(Math.random()*2) == 0) {
+//     $('.test-div').css('color', 'green')
+//   } else {
+//     $('.test-div').css('color', 'red')
+//   }
+//   document.querySelector('.test-div').removeEventListener('click', makeGreen)
+// }
+
+// 2 ================================================================================================
+// const newContent = "Data";
+
+// document.querySelector('.warning-main').addEventListener("click", (event) => {
+//   changeContent(event, newContent);
+// });
+
+// function changeContent(event, content) {
+//   console.log(content)
+// }
