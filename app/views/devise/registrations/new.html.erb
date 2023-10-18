@@ -1,0 +1,33 @@
+<div class="row justify-content-center">
+  <div class="col-md-5 col-lg-4">
+    <div class="card border-primary">
+      <div class="card-body" align="center">
+        <h2><%= t('.header') %></h2>
+        <%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
+          <%= render "devise/shared/error_messages", resource: resource %>
+          <div class="form-group">
+            <p align="center">
+              <%= f.label :email %>
+              <%= f.email_field :email, autofocus: true, class: 'form-control', autocomplete: "email" %>
+            </p>
+            <p align="center">
+              <%= f.label :password %>
+              <% if @minimum_password_length %>
+                <em>(<%= t('.minimum_password_length', length: @minimum_password_length) %>)</em>
+              <% end %>
+              <%= f.password_field :password, class: 'form-control' %>
+            </p>
+            <p align="center">
+              <%= f.label :password_confirmation %>
+              <%= f.password_field :password_confirmation, class: 'form-control' %>
+            </p>
+              <p align="center"><%= f.submit t('.sign_up'), class: 'btn btn-primary' %></p>
+          </div>
+        <% end %>
+      </div>
+    </div>
+    <div class="mt-3">
+      <%= render "devise/shared/links" %>
+    </div>
+  </div>
+</div>

@@ -33,6 +33,7 @@ feature 'User can search for books with filters', %q{
     with_pages_count
     with_comments_count
   end
+  # Необходимо, т.к. тестовая среда уничтожает данные Rating и замороженный хэш начинает указывать на пустое место
   given(:reinitialize_rating_instances_constant) do
     Rating::INSTANCES = {
       'litres' => (Rating.find_by(name: 'litres') || Rating.create!(name: 'litres')),
@@ -40,8 +41,9 @@ feature 'User can search for books with filters', %q{
     }
   end
   given(:forty_nine_books) { create_list(:book, 49) }
+  given(:user) { create(:user) }
 
-  describe 'Unauthenticated user tries to search for a books', js: true do
+  describe 'Any user tries to search for a books', js: true do
     scenario 'with no filters then no books exist' do
       visit(searches_index_path)
       click_on 'Найти'
@@ -274,6 +276,22 @@ feature 'User can search for books with filters', %q{
         within '.search-result-list' do
           expect(page).to have_content 'first_added'
         end
+      end
+    end
+  end
+
+  describe 'Authenticated user tries to search for a books', js: true do
+    before { sign_in(user) }
+
+    scenario 'and get his search request saved if books exist' do
+      reinitialize_rating_instances_constant
+      all_type_books
+      visit(searches_index_path)
+      click_on 'Найти'
+
+      wait_for_ajax
+      within '.old-search-area' do
+        expect(page).to have_content user.searches.first.updated_at.to_s
       end
     end
   end

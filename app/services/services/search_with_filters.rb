@@ -4,8 +4,9 @@ module Services
   class SearchWithFilters
     PER_PAGE = 25
 
-    def initialize(params)
+    def initialize(params, current_user = nil)
       @params = params
+      @current_user = current_user
     end
 
     def call
@@ -20,7 +21,7 @@ module Services
       return @results unless genre_exist? && dates_acceptable?
 
       collection = collect_books_with_filters
-      inject_collection_data_in_results(collection) if @params[:page].blank?
+      inject_in_results(collection)
       @params[:page].blank? ? inject_params_data_in_results : inject_params_data_in_results('page_only')
       serialize_collection(collection)
       @results
@@ -141,14 +142,40 @@ module Services
       collection.where('comments_count >= ?', @params[:comments_count].to_i)
     end
 
+    def inject_in_results(collection)
+      inject_collection_data_in_results(collection) if @params[:page].blank?
+      inject_user_data_in_results
+    end
+
     def inject_collection_data_in_results(collection)
       @results[:results] ||= {}
       @results[:results][:count] = collection.count
       @results[:results][:per_page] = PER_PAGE
     end
 
+    def inject_user_data_in_results
+      @results[:user] ||= {}
+      return unless @current_user
+
+      @results[:user][:id] = @current_user.id
+      @results[:user][:book_ids] = @current_user.books.ids
+      inject_searches_updated_at_data if @current_user.searches.count.positive?
+    end
+
+    def inject_searches_updated_at_data
+      @results[:user][:searches_updated_at_and_id] ||= []
+      @results[:user][:searches_updated_at_and_id] = user_searches(@current_user.searches)
+    end
+
+    def user_searches(relation, searches = [])
+      relation.each do |search|
+        searches.push({ id: search.id, updated_at: search.updated_at.to_s })
+      end
+      searches
+    end
+
     def serialize_collection(collection)
-      page = @params[:page] ? to_positive_i(@params[:page]) : 0
+      page = @params[:page] ? to_zero_or_positive_i(@params[:page]) : 0
       collection.offset(page * PER_PAGE).limit(PER_PAGE).each do |resource|
         options = { serializer: SearchWithFiltersBookSerializer }
         serialized_resource = ActiveModelSerializers::SerializableResource.new(resource, options)
@@ -157,7 +184,7 @@ module Services
       end
     end
 
-    def to_positive_i(string)
+    def to_zero_or_positive_i(string)
       (number = string.to_i) >= 0 ? number : 0
     end
 

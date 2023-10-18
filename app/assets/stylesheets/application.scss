@@ -27,3 +27,26 @@
 .search-view-item-selected {
   background-color: #94E05B;
 }
+
+.octicon {
+  fill: currentColor;
+}
+
+.octicon-green {
+  color: #94E05B;
+}
+
+.octicon-black {
+  color: black;
+}
+
+.brand-link {
+  font-size: 200%;
+  text-decoration: none;
+  color: black;
+  font-weight: bold;
+}
+
+body {
+  min-width: 600px;
+}

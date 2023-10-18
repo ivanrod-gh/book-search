@@ -1,12 +1,8 @@
 document.addEventListener('turbolinks:load', function() {
-  if (!document.querySelector('.search-index')) return
+  if (!document.querySelector('.searches-index')) return
 
   document.querySelector('.search-with-filters-button-area').addEventListener('click', showSearchWithFiltersControlPanel)
   document.querySelector('.search-full-text-button-area').addEventListener('click', showSearchFullTextControlPanel)
-  var searchFilterButtons = [].slice.call(document.querySelectorAll('.search-select-filter-button'))
-  for (var i = 0; i < searchFilterButtons.length; i++) {
-    searchFilterButtons[i].addEventListener('click', swichSelectedSearchFilter)
-  }
 })
 
 function showSearchWithFiltersControlPanel(event) {
@@ -14,6 +10,9 @@ function showSearchWithFiltersControlPanel(event) {
   document.querySelector('.paginate-links-list').innerHTML = ''
 
   document.querySelector('.search-with-filters-form').classList.remove('hide')
+  if (document.querySelector('.old-search-area')) {
+    document.querySelector('.old-search-area').classList.remove('hide')
+  }
   document.querySelector('.search-with-filters-button-area').classList.add('search-view-item-selected')
 
   document.querySelector('.search-full-text-form').classList.add('hide')
@@ -25,10 +24,20 @@ function showSearchFullTextControlPanel(event) {
   document.querySelector('.paginate-links-list').innerHTML = ''
   
   document.querySelector('.search-full-text-form').classList.remove('hide')
+  if (document.querySelector('.old-search-area')) {
+    document.querySelector('.old-search-area').classList.add('hide')
+  }
   document.querySelector('.search-full-text-button-area').classList.add('search-view-item-selected')
   
   document.querySelector('.search-with-filters-form').classList.add('hide')
   document.querySelector('.search-with-filters-button-area').classList.remove('search-view-item-selected')
+}
+
+export function assignClickListenersToFiltersButtons() {
+  var searchFilterButtons = [].slice.call(document.querySelectorAll('.search-with-filters-form .search-select-filter-button'))
+  for (var i = 0; i < searchFilterButtons.length; i++) {
+    searchFilterButtons[i].addEventListener('click', swichSelectedSearchFilter)
+  }
 }
 
 function swichSelectedSearchFilter(event) {

@@ -183,7 +183,11 @@ module Services
 
     def writing_year(art)
       year_data = extract_data(art, 'title-info date', 0)
-      year_data =~ /[ -._]/ ? calculdate_year(year_data) : ((year = year_data.to_i.positive?) ? year : nil )
+      if year_data =~ /[ -._]/
+        calculdate_year(year_data)
+      else
+        ((year = year_data.to_i.positive?) ? year : nil)
+      end
     end
 
     def calculdate_year(year_data)

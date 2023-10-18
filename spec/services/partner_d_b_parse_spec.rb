@@ -67,7 +67,7 @@ RSpec.describe Services::PartnerDBParse do
 
       it 'add additional book data from parsing' do
         expect(Book.first.name).to eq 'Рубеж'
-        expect(Book.first.date).to eq '2007-07-25'
+        expect(Book.first.date.to_date.to_s).to eq '2007-07-25'
         expect(Book.first.writing_year).to eq 1999
       end
 

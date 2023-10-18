@@ -9,7 +9,7 @@ feature 'User can search for books and authors with full-text search', %q{
   given(:specific_book) { create(:book, :named_specific) }
   given(:specific_author) { create(:author, :named_specific) }
 
-  describe 'Unauthenticated user tries to search for a book or author' do
+  describe 'Any user tries to search for a book or author' do
     scenario 'with too short query', js: true do
       visit(searches_index_path)
       find('.search-full-text-button-area').click

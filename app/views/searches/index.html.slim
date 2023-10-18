@@ -1,168 +1,64 @@
-span.search-index
-div class='warning-main p-1'
-  span.warning-main-content
+span.searches-index
+div class='warning-main p-1 mt-2 mb-2'
+  span class='warning-main-content ms-2'
     |Приложение работает с ограничениями - 
-  span.warning-show-message-holder
+  span class='warning-show-message-holder'
     = link_to 'подробнее', '#', class: 'warning-show-message-link'
   span class='warning-hide-message-holder hide'
     = link_to 'скрыть', '#', class: 'warning-hide-message-link'
   div class='warning-message hide'
-    ul
+    ul class='mt-0 mb-0'
       li
         |Загружена небольшая часть данных по книгам
       li
         |Часть данных (оценки, количество страниц и комментариев) являются сгенерированными
       li
+        |Расширенный поиск производится по ограниченному колличеству жанров
+      li
         |Приложение не хранит описания книг, текст книг и комментариев
       li
         |Ссылки на книги и авторов ведут на litres.ru
 
-div class='row'
-  div class='d-flex flex-wrap justify-content-center align-items-center'
-    div class='search-with-filters-button-area search-view-item-selected btn border border-primary p-1 m-2 rounded-3' style='width: 45%;'
-      div
-        |Расширенный поиск книг
-    div class='search-full-text-button-area btn border border-primary p-1 m-2 rounded-3' style='width: 45%;'
-      div
-        |Поиск книги или автора
-div class='search-with-filters-form'
-  = form_with url: '/searches/with_filters', local: false do |f|
+div.search-selector-area
+  div class='row'
+    div class='d-flex flex-wrap justify-content-center align-items-center'
+      div class='search-with-filters-button-area search-view-item-selected btn border border-primary p-1 m-2' style='width: 45%;'
+        div
+          |Расширенный поиск книг
+      div class='search-full-text-button-area btn border border-primary p-1 m-2' style='width: 45%;'
+        div
+          |Поиск книги или автора
+- if can?(:retrieve_old_search, Search)
+  div.old-search-area
     div class='row'
-      div class='d-flex flex-wrap justify-content-center align-items-center'
-        div class='search-select-filter-button search-select-filter-genre-button btn border border-primary p-1 m-2 rounded-3' data-search-filter='search-filter-genre-int-id'
-          |Жанр
-          = f.check_box :genre_filter, class: 'hide'
-        div class='m-2'
-          div
-            |Дата добавления
-          div
-            div class='search-select-filter-button btn d-flex justify-content-center align-items-center border border-primary p-1 m-1 rounded-3' data-search-filter='search-filter-date-added' data-search-filter-item='search-filter-start-date-added'
-              |Не раньше 
-              = f.check_box :start_date_filter, class: 'hide'
-          div
-            div class='search-select-filter-button btn d-flex justify-content-center align-items-center border border-primary p-1 m-1 rounded-3' data-search-filter='search-filter-date-added' data-search-filter-item='search-filter-end-date-added'
-              |Не позднее 
-              = f.check_box :end_date_filter, class: 'hide'
-        div class='m-2'
-          div
-            |Оценка Litres
-          div class='search-select-filter-button btn d-flex justify-content-center align-items-center border border-primary p-1 m-1 rounded-3' data-search-filter='search-filter-rating-litres' data-search-filter-item='search-filter-rating-litres-average'
-            |Средняя 
-            = f.check_box :rating_litres_average_filter, class: 'hide'
-          div class='search-select-filter-button btn d-flex justify-content-center align-items-center border border-primary p-1 m-1 rounded-3' data-search-filter='search-filter-rating-litres' data-search-filter-item='search-filter-rating-litres-votes-count'
-            |Количество  
-            = f.check_box :rating_litres_votes_count_filter, class: 'hide'
-        div class='m-2'
-          div
-            |Оценка Livelib
-          div class='search-select-filter-button btn d-flex justify-content-center align-items-center border border-primary p-1 m-1 rounded-3' data-search-filter='search-filter-rating-livelib' data-search-filter-item='search-filter-rating-livelib-average'
-            |Средняя 
-            = f.check_box :rating_livelib_average_filter, class: 'hide'
-          div class='search-select-filter-button btn d-flex justify-content-center align-items-center border border-primary p-1 m-1 rounded-3' data-search-filter='search-filter-rating-livelib' data-search-filter-item='search-filter-rating-livelib-votes-count'
-            |Количество  
-            = f.check_box :rating_livelib_votes_count_filter, class: 'hide'
-        div class='search-select-filter-button btn border border-primary p-1 m-2 rounded-3' data-search-filter='search-filter-writing-year'
-          |Год издания  
-          = f.check_box :writing_year_filter, class: 'hide'
-        div class='search-select-filter-button btn border border-primary p-1 m-2 rounded-3' data-search-filter='search-filter-pages-count'
-          div class='d-flex justify-content-center align-items-center'
-            |Количество 
-          div class='d-flex justify-content-center align-items-center'
-            |страниц 
-            = f.check_box :pages_count_filter, class: 'hide'
-        div class='search-select-filter-button btn border border-primary p-1 m-2 rounded-3' data-search-filter='search-filter-comments-count'
-          div class='d-flex justify-content-center align-items-center'
-            |Количество 
-          div class='d-flex justify-content-center align-items-center'
-            |комментариев 
-            = f.check_box :comments_count_filter, class: 'hide'
-        div class='p-1 m-2'
-        = f.submit 'Найти', style: 'width: 75px; height: 35px;'
+      div class='d-flex justify-content-center align-items-center m-2'
+        div class="card border-secondary"
+          div class='p-1 m-1 ms-2 me-2 mb-2'
+            div align='center'
+              |Использовать параметры предыдущего поиска:
+            div align='center'
+              = form_with url: '/searches/retrieve_old_search', local: false do |f|
+                = f.select :id, current_user.searches.pluck(:updated_at, :id), {}, style: 'width: 250px;'
+                span class='ms-3'
+                  = f.submit 'Применить'
+div.search-with-filters-form-area
 
-    div class='row'
-      div class='d-flex flex-wrap justify-content-center align-items-center'
-        div class='btn mb-2 search-filter-genre-int-id hide' style='width: 250px;'
-          div
-            |Жанр
-          div
-            = f.select :genre_int_id, [['Научная фантастика', '5073'], ['Боевая фантастика', '5074'], ['Юмористическая фантастика', '5079'], ['Попаданцы', '5082'], ['Мистика', '5223'], ['Боевики', '5207'], ['Боевое фэнтези', '5232'], ['Современные детективы', '5259'], ['Современные любовные романы', '5085'], ['Книги о путешествиях', '5094'], ['Исторические приключения', '5095'], ['Зарубежные приключения', '5096'], ['Детская проза', '5104'], ['Сказки', '5106'], ['Историческая литература', '5209'], ['Современная русская литература', '5210'], ['Зарубежная классика', '5214'], ['Классическая проза', '5296'], ['Русская классика', '5297'], ['Советская литература', '5298'], ['Литература 20 века', '5304'], ['Литература 19 века', '5305'], ['Литература 18 века', '5306'], ['Книги о войне', '5205'], ['Медицина', '6434'], ['Документальная литература', '5170'], ['Общая история', '6429'], ['Политология', '5622'], ['Юриспруденция', '6444'], ['Культурология', '5242'], ['Книги по философии', '6442'], ['Кулинария', '5275'], ['Пьесы и драматургия', '5266'], ['Стихи и поэзия', '5267'], ['Здоровье', '6449'], ['Публицистика', '6491'], ['Эзотерика / оккультизм', '5188'], ['Религиозные тексты', '5189']], {}, style: 'width: 200px;'
-        div class='btn mb-2 search-filter-date-added hide' style='width: 200px;'
-          - dates_added = Book.first_and_last_date_added
-          - start_month = dates_added[:start_date_added].month
-          - start_year = dates_added[:start_date_added].year
-          - end_month = dates_added[:end_date_added].month
-          - end_year = dates_added[:end_date_added].year
-          |Дата добавления
-          div class='row mb-1 search-filter-start-date-added hide dfgdfgdfgdfgfdgfdg'
-            div class='col-2'
-              |с:
-            div class='col-8'
-              = f.date_select "start_date_added", start_year: start_year, end_year: end_year, default: {  month: start_month, year: start_year }, use_month_numbers: true, discard_day: true, order: [:day, :month, :year]
-          div class='row search-filter-end-date-added hide'
-            div class='col-2'
-              |по:
-            div class='col-8'
-              = f.date_select "end_date_added", start_year: start_year, end_year: end_year, default: {  month: end_month, year: end_year }, use_month_numbers: true, discard_day: true, order: [:day, :month, :year]
-        div class='btn mb-2 search-filter-rating-litres hide' style='width: 250px;'
-          |Оценка Litres
-          div class='row mb-1 search-filter-rating-litres-average hide'
-            div class='col-6'
-              |Средняя от:
-            div class='col-4'
-              = f.text_field :rating_litres_average, style: 'width: 75px;'
-          div class='row search-filter-rating-litres-votes-count hide'
-            div class='col-6'
-              |Кол-во от:
-            div class='col-4'
-              = f.text_field :rating_litres_votes_count, style: 'width: 75px;'
-        div class='btn mb-2 search-filter-rating-livelib hide' style='width: 250px;'
-          |Оценка Livelib
-          div class='row mb-1 search-filter-rating-livelib-average hide'
-            div class='col-6'
-              |Средняя от:
-            div class='col-4'
-              = f.text_field :rating_livelib_average, style: 'width: 75px;'
-          div class='row search-filter-rating-livelib-votes-count hide'
-            div class='col-6'
-              |Кол-во от:
-            div class='col-4'
-              = f.text_field :rating_livelib_votes_count, style: 'width: 75px;'
-        div class='btn mb-2 search-filter-writing-year hide' style='width: 125px;'
-          |Год издания
-          div class='row'
-            div class='col-2'
-              |с: 
-            div class='col-8'
-              = f.text_field :writing_year, style: 'width: 75px;'
-        div class='btn mb-2 search-filter-pages-count hide' style='width: 125px;'
-          |Количество страниц
-          div class='row'
-            div class='col-2'
-              |от: 
-            div class='col-8'
-              = f.text_field :pages_count, style: 'width: 75px;'
-        div class='btn mb-2 search-filter-comments-count hide' style='width: 150px;'
-          |Количество комментариев
-          div class='row'
-            div class='col-2'
-              |от: 
-            div class='col-8'
-              = f.text_field :comments_count, style: 'width: 75px;'
-
-div class='row'
-  dic class='d-flex justify-content-center align-items-center'
-    div class='border border-secondary p-1 m-2 rounded-3 search-full-text-form hide search-view-item-selected' style='width: 70%;'
-      = form_with url: '/searches/full_text', local: false do |f|
-        div align='center'
-          |Введите полностью или частично название книги или имя автора: 
-        div align='center'
-          = f.text_field :query, style: 'width: 40%;'
-          span class='p-1 m-2'
-            = f.submit 'Найти'
+div class='search-full-text-form hide'
+  div class='row'
+    dic class='d-flex justify-content-center align-items-center m-2'
+      div class="card border-secondary"
+        div class='p-1 m-1 ms-2 me-2 mb-2'
+          = form_with url: '/searches/full_text', local: false do |f|
+            div align='center'
+              |Введите полностью или частично название книги или имя автора: 
+            div align='center'
+              = f.text_field :query, style: 'width: 40%;'
+              span class='ms-3'
+                = f.submit 'Найти'
 
 div class='search-result-list p-2 pt-4'
 div.paginate-area
-  div.paginate-data
+  div class='paginate-data'
   div class='paginate-links-list' align='center'
 
 div class='search-full-text-minimum-length-warning-message-template hide'
@@ -184,13 +80,13 @@ div class='search-full-text-book-message-template hide'
     div class='col-sm-12'
       |Найденные книги:
 div class='search-full-text-book-header-template hide'
-  div class='row' align='center'
+  div class='row'
     div class='col-sm-2'
-    div class='col-sm-4'
+    div class='col-sm-4 d-flex justify-content-center align-items-center'
         |Название
-    div class='col-sm-1'
+    div class='col-sm-1 d-flex justify-content-center align-items-center'
         |Год
-    div class='col-sm-3'
+    div class='col-sm-3 d-flex justify-content-center align-items-center'
         |Автор
     div class='col-sm-2'
 div class='search-full-text-author-message-template hide'
@@ -198,11 +94,11 @@ div class='search-full-text-author-message-template hide'
     div class='col-sm-12'
       |Найденные авторы:
 div class='search-full-text-author-header-template hide'
-  div class='row' align='center'
+  div class='row'
     div class='col-sm-2'
-    div class='col-sm-4'
+    div class='col-sm-4 d-flex justify-content-center align-items-center'
         |ФИО
-    div class='col-sm-1'
+    div class='col-sm-1 d-flex justify-content-center align-items-center'
         |Книг
 div class='search-full-text-maximum-results-warning-message-template hide'
   div class='row' align='center'
@@ -219,20 +115,35 @@ div class='server-respond-error-warning-message-template hide'
     div class='col-sm-12'
       |При обработке вашего запроса произошла ошибка
 div class='search-with-filters-book-header-template hide'
-  div class='row' align='center'
-    div class='col-sm-1'
+  - if can?(:books_shelf, User)
+    div class='row'
+      div class='col-sm-1' align='center'
         |Рейтинг Litres
-    div class='col-sm-1'
+      div class='col-sm-1' align='center'
         |Рейтинг Livelib
-    div class='col-sm-4'
+      div class='col-sm-5 d-flex justify-content-center align-items-center'
         |Название
-    div class='col-sm-1'
+      div class='col-sm-2' align='center'
+        |Год, страниц, 
+        |комментариев
+      div class='col-sm-3 d-flex justify-content-center align-items-center'
+        |Автор
+  - else
+    div class='row'
+      div class='col-sm-1' align='center'
+        |Рейтинг Litres
+      div class='col-sm-1' align='center'
+        |Рейтинг Livelib
+      div class='col-sm-4 d-flex justify-content-center align-items-center'
+        |Название
+      div class='col-sm-1 d-flex justify-content-center align-items-center'
         |Год
-    div class='col-sm-1'
+      div class='col-sm-1 d-flex justify-content-center align-items-center'
         |Страниц
-    div class='col-sm-1'
-        |Коммен-тариев
-    div class='col-sm-3'
+      div class='col-sm-1 d-flex justify-content-center align-items-center'
+        |Коммен-
+        |тариев
+      div class='col-sm-3 d-flex justify-content-center align-items-center'
         |Автор
 div class='paginate-data-template hide'
 div class='paginate-links-list-template hide'
@@ -240,3 +151,156 @@ div class='book-date-added-data-message-template hide' align='center'
   em
     |Добавлено 
   em class='date-added'
+div class='search-with-filters-form-template hide'
+  = form_with url: '/searches/with_filters', local: false do |f|
+    div class='row'
+      div class='d-flex flex-wrap justify-content-center align-items-center'
+        div class='search-select-filter-button btn border border-primary m-2' data-search-filter='search-filter-genre-int-id'
+          |Жанр
+          = f.check_box :genre_filter, class: 'hide'
+        div class='m-2'
+          div
+            |Дата добавления
+          div
+            div class='search-select-filter-button btn d-flex justify-content-center align-items-center border border-primary p-1 m-1' data-search-filter='search-filter-date-added' data-search-filter-item='search-filter-start-date-added'
+              |Не раньше 
+              = f.check_box :start_date_filter, class: 'hide'
+          div
+            div class='search-select-filter-button btn d-flex justify-content-center align-items-center border border-primary p-1 m-1' data-search-filter='search-filter-date-added' data-search-filter-item='search-filter-end-date-added'
+              |Не позднее 
+              = f.check_box :end_date_filter, class: 'hide'
+        div class='m-2'
+          div
+            |Оценка Litres
+          div class='search-select-filter-button btn d-flex justify-content-center align-items-center border border-primary p-1 m-1' data-search-filter='search-filter-rating-litres' data-search-filter-item='search-filter-rating-litres-average'
+            |Средняя 
+            = f.check_box :rating_litres_average_filter, class: 'hide'
+          div class='search-select-filter-button btn d-flex justify-content-center align-items-center border border-primary p-1 m-1' data-search-filter='search-filter-rating-litres' data-search-filter-item='search-filter-rating-litres-votes-count'
+            |Количество  
+            = f.check_box :rating_litres_votes_count_filter, class: 'hide'
+        div class='m-2'
+          div
+            |Оценка Livelib
+          div class='search-select-filter-button btn d-flex justify-content-center align-items-center border border-primary p-1 m-1' data-search-filter='search-filter-rating-livelib' data-search-filter-item='search-filter-rating-livelib-average'
+            |Средняя 
+            = f.check_box :rating_livelib_average_filter, class: 'hide'
+          div class='search-select-filter-button btn d-flex justify-content-center align-items-center border border-primary p-1 m-1' data-search-filter='search-filter-rating-livelib' data-search-filter-item='search-filter-rating-livelib-votes-count'
+            |Количество  
+            = f.check_box :rating_livelib_votes_count_filter, class: 'hide'
+        div class='search-select-filter-button btn border border-primary m-2' data-search-filter='search-filter-writing-year'
+          |Год издания  
+          = f.check_box :writing_year_filter, class: 'hide'
+        div class='search-select-filter-button btn border border-primary m-2' data-search-filter='search-filter-pages-count'
+          div class='d-flex justify-content-center align-items-center'
+            |Количество 
+          div class='d-flex justify-content-center align-items-center'
+            |страниц 
+            = f.check_box :pages_count_filter, class: 'hide'
+        div class='search-select-filter-button btn border border-primary m-2' data-search-filter='search-filter-comments-count'
+          div class='d-flex justify-content-center align-items-center'
+            |Количество 
+          div class='d-flex justify-content-center align-items-center'
+            |комментариев 
+            = f.check_box :comments_count_filter, class: 'hide'
+        div class='m-2'
+          = f.submit 'Найти', style: 'width: 75px; height: 35px;'
+    div class='row'
+      div class='d-flex flex-wrap justify-content-center align-items-center'
+        div class='search-filter-genre-int-id hide m-2'
+          div class='d-flex justify-content-center align-items-center'
+            div class="card border-secondary"
+              div class='m-1 ms-2 me-2 mb-2'
+                div align='center'
+                  |Жанр
+                div align='center'
+                  = f.select :genre_int_id, [['Научная фантастика', '5073'], ['Боевая фантастика', '5074'], ['Юмористическая фантастика', '5079'], ['Попаданцы', '5082'], ['Мистика', '5223'], ['Боевики', '5207'], ['Боевое фэнтези', '5232'], ['Современные детективы', '5259'], ['Современные любовные романы', '5085'], ['Книги о путешествиях', '5094'], ['Исторические приключения', '5095'], ['Зарубежные приключения', '5096'], ['Детская проза', '5104'], ['Сказки', '5106'], ['Историческая литература', '5209'], ['Современная русская литература', '5210'], ['Зарубежная классика', '5214'], ['Классическая проза', '5296'], ['Русская классика', '5297'], ['Советская литература', '5298'], ['Литература 20 века', '5304'], ['Литература 19 века', '5305'], ['Литература 18 века', '5306'], ['Книги о войне', '5205'], ['Медицина', '6434'], ['Документальная литература', '5170'], ['Общая история', '6429'], ['Политология', '5622'], ['Юриспруденция', '6444'], ['Культурология', '5242'], ['Книги по философии', '6442'], ['Кулинария', '5275'], ['Пьесы и драматургия', '5266'], ['Стихи и поэзия', '5267'], ['Здоровье', '6449'], ['Публицистика', '6491'], ['Эзотерика / оккультизм', '5188'], ['Религиозные тексты', '5189']], {}, style: 'width: 200px;'
+        div class='search-filter-date-added hide m-2'
+          div class='d-flex justify-content-center align-items-center'
+            div class="card border-secondary"
+              div class='m-1 ms-2 me-2 mb-2'
+                - dates_added = Book.first_and_last_date_added
+                - start_month = dates_added[:start_date_added].month
+                - start_year = dates_added[:start_date_added].year
+                - end_month = dates_added[:end_date_added].month
+                - end_year = dates_added[:end_date_added].year
+                div align='center'
+                  |Дата добавления
+                div class='row search-filter-start-date-added hide mb-1'
+                  div class='d-flex justify-content-center align-items-center'
+                    div class='me-2' style='width: 25px;'
+                      |с:
+                    div
+                      = f.date_select "start_date_added", start_year: start_year, end_year: end_year, default: {  month: start_month, year: start_year }, use_month_numbers: true, discard_day: true, order: [:day, :month, :year]
+                div class='row search-filter-end-date-added hide'
+                  div class='d-flex justify-content-center align-items-center'
+                    div class='me-2' style='width: 25px;'
+                      |по:
+                    div
+                      = f.date_select "end_date_added", start_year: start_year, end_year: end_year, default: {  month: end_month, year: end_year }, use_month_numbers: true, discard_day: true, order: [:day, :month, :year]
+        div class='search-filter-rating-litres hide m-2'
+          div class="card border-secondary"
+            div class='m-1 ms-2 me-2 mb-2'
+              div align='center'
+                |Оценка Litres
+              div class='row search-filter-rating-litres-average hide mb-1'
+                div class='d-flex justify-content-center align-items-center'
+                  div class='me-2' style='width: 100px;'
+                    |Средняя от:
+                  div
+                    = f.text_field :rating_litres_average, style: 'width: 75px;'
+              div class='row search-filter-rating-litres-votes-count hide'
+                div class='d-flex justify-content-center align-items-center'
+                  div class='me-2' style='width: 100px;'
+                    |Кол-во от:
+                  div
+                    = f.text_field :rating_litres_votes_count, style: 'width: 75px;'
+        div class='search-filter-rating-livelib hide m-2'
+          div class="card border-secondary"
+            div class='m-1 ms-2 me-2 mb-2'
+              div align='center'
+                |Оценка Livelib
+              div class='row search-filter-rating-livelib-average hide mb-1'
+                div class='d-flex justify-content-center align-items-center'
+                  div class='me-2' style='width: 100px;'
+                    |Средняя от:
+                  div
+                    = f.text_field :rating_livelib_average, style: 'width: 75px;'
+              div class='row search-filter-rating-livelib-votes-count hide'
+                div class='d-flex justify-content-center align-items-center'
+                  div class='me-2' style='width: 100px;'
+                    |Кол-во от:
+                  div
+                    = f.text_field :rating_livelib_votes_count, style: 'width: 75px;'
+        div class='search-filter-writing-year hide m-2'
+          div class="card border-secondary"
+            div class='m-1 ms-2 me-2 mb-2'
+              div align='center'
+                |Год издания
+              div class='row'
+                div class='d-flex justify-content-center align-items-center'
+                  div class='me-2' style='width: 25px;'
+                    |с: 
+                  div
+                    = f.text_field :writing_year, style: 'width: 75px;'
+        div class='search-filter-pages-count hide m-2'
+          div class="card border-secondary"
+            div class='m-1 ms-2 me-2 mb-2'
+              div align='center'
+                |Количество страниц
+              div class='row'
+                div class='d-flex justify-content-center align-items-center'
+                  div class='me-2' style='width: 25px;'
+                    |от: 
+                  div
+                    = f.text_field :pages_count, style: 'width: 75px;'
+        div class='search-filter-comments-count hide m-2'
+          div class="card border-secondary"
+            div class='m-1 ms-2 me-2 mb-2'
+              div align='center'
+                |Количество комментариев
+              div class='row'
+                div class='d-flex justify-content-center align-items-center'
+                  div class='me-2' style='width: 25px;'
+                    |от: 
+                  div
+                    = f.text_field :comments_count, style: 'width: 75px;'

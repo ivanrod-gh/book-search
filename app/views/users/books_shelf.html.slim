@@ -1,0 +1,38 @@
+span.users-books-shelf
+h2 align='center' style='font-weight: bold;'
+  |Действия
+
+div class="row justify-content-center pt-1 pb-1"
+  div class="col-md-10"
+    div class="card border-primary"
+      div class='ms-1 me-1 mb-1'
+        div class="card-body" align="center"
+          div class='user-books-destroy-all-link-area'
+            = link_to 'Очистить книжную полку', user_books_destroy_all_path, data: { confirm: 'Вы уверены? Это действие полностью очистит книжную полку'}, remote: true, method: :delete
+h2 align='center' style='font-weight: bold;'
+  |Книжная полка
+
+div class='user-books-list p-1'
+div.paginate-area
+  div class='paginate-links-list' align='center'
+
+div class='show-books-button-area hide'
+  = link_to 'Показать книжную полку', books_show_users_path, remote: true, method: :post
+div class='user-books-header-template hide'
+  div class='row'
+    div class='col-sm-1 d-flex justify-content-center align-items-center'
+      |Убрать
+    div class='col-sm-1' align='center'
+      |Рейтинг Litres
+    div class='col-sm-1' align='center'
+      |Рейтинг Livelib
+    div class='col-sm-4 d-flex justify-content-center align-items-center'
+      |Название
+    div class='col-sm-2' align='center'
+      |Год, страниц, комментариев
+    div class='col-sm-3 d-flex justify-content-center align-items-center'
+      |Автор
+div class='user-books-nothing-found-warning-message-template hide'
+  div class='row' align='center'
+    div class='col-sm-12'
+      |На книжной полке пока нет сохраненных книг
