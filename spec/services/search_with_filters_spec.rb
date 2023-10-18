@@ -2,8 +2,8 @@ require 'rails_helper'
 
 RSpec.describe Services::SearchWithFilters do
   let(:params_with_genre) { {genre_filter: '1', genre_int_id: 'invalid'} }
-  let(:params_with_start_date_added) { {start_date_filter: '1', 'start_date_added(1i)': 'invalid'} }
-  let(:params_with_end_date_added) { {end_date_filter: '1', 'end_date_added(1i)': 'invalid'} }
+  let(:params_with_start_date_added) { { 'start_date_filter': '1', 'start_date_added(1i)': 'invalid' } }
+  let(:params_with_end_date_added) { { 'end_date_filter': '1', 'end_date_added(1i)': 'invalid' } }
   let(:warning_genre) { {"warning"=>{"genre"=>"does_not_exist"}} }
   let(:warning_start_date_added) { {"warning"=>{"date_added_data"=>{"start"=>"invalid"}}} }
   let(:warning_end_date_added) { {"warning"=>{"date_added_data"=>{"end"=>"invalid"}}} }

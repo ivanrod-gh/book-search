@@ -1,0 +1,32 @@
+<div class="row justify-content-center">
+  <div class="col-md-5 col-lg-4">
+    <div class="card border-primary">
+      <div class="card-body" align="center">
+        <h2><%= t('.header') %></h2>
+        <%= form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :put }) do |f| %>
+          <%= render "devise/shared/error_messages", resource: resource %>
+          <%= f.hidden_field :reset_password_token %>
+          <div class="form-group">
+            <p align="center">
+              <%= f.label :password, t('.new') %><br />
+              <% if @minimum_password_length %>
+                <em>(<%= t('.minimum_password_length', length: @minimum_password_length) %>)</em>
+              <% end %>
+              <%= f.password_field :password, autofocus: true, class: 'form-control', autocomplete: "new-password" %>
+            </p>
+            <p align="center">
+              <%= f.label :password_confirmation, t('.confirm') %><br />
+              <%= f.password_field :password_confirmation, class: 'form-control', autocomplete: "new-password" %>
+            </p>
+            <p>
+              <%= f.submit t('.change'), class: 'btn btn-primary' %>
+            </p>
+          </div>
+        <% end %>
+      </div>
+    </div>
+    <div class="mt-3">
+      <%= render "devise/shared/links" %>
+    </div>
+  </div>
+</div>

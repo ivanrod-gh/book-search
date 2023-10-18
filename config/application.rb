@@ -21,6 +21,11 @@ module BookSearch
 
     config.autoload_paths << "#{Rails.root}/app/services"
 
+    config.time_zone = 'Moscow'
+    config.i18n.load_path += Dir[Rails.root.join('config', 'locale', '*.{rb,yml}')]
+    config.i18n.available_locales = [:ru, :en]
+    config.i18n.default_locale = :ru
+
     # Remove ActionMailbox and ActiveStorage from routes
     initializer(:remove_action_mailbox_and_activestorage_routes, after: :add_routing_paths) { |app|
       app.routes_reloader.paths.delete_if {|path| path =~ /activestorage/}

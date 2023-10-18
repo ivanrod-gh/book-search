@@ -1,0 +1,36 @@
+ru:
+  hello: "Привет мир"
+  
+  activerecord:
+    models:
+      user: "Пользователь"
+    attributes:
+      user:
+        email: "Почта"
+        password: "Пароль"
+        password_confirmation: "Подтверждение пароля"
+        access_level: "Уровень доступа"
+    errors:
+      messages:
+        accepted: "необходимо принять"
+        invalid: "является неверным значением"
+        confirmation: "не совпадает с подтверждением"
+        exclusion: "- зарезервированное занение"
+        inclusionis: "не в списке"
+        too_short: "- минимальное количество символов - %{count}"
+        too_long: "- максимальное количество символов - %{count}"
+        wrong_length: "неверное количество символов. Должно быть - %{count}"
+        not_a_number: "не число"
+        odd: "не является нечетным"
+        even: "не является четным"
+        greater_than: "- количество символов должно быть более {count}"
+        greater_than_or_equal_to: "- количество символов должно быть не менее %{count}"
+        equal_to: "- количество символов должно быть равно %{count}"
+        less_than: "- количество символов должно быть менее %{count}"
+        less_than_or_equal_to: "- количество символов должно быть не более %{count}"
+        blank: "не может отсутствовать"
+        taken: "- уже занято"
+
+  unauthorized:
+    manage:
+      all: "У вас нет доступа к этой странице."

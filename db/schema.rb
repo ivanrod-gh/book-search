@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2023_09_08_184802) do
+ActiveRecord::Schema.define(version: 2023_10_10_140301) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -53,6 +53,11 @@ ActiveRecord::Schema.define(version: 2023_09_08_184802) do
     t.index ["book_id"], name: "index_book_ratings_on_book_id"
     t.index ["rating_id"], name: "index_book_ratings_on_rating_id"
     t.index ["votes_count"], name: "index_book_ratings_on_votes_count"
+  end
+
+  create_table "book_shelves", force: :cascade do |t|
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
   end
 
   create_table "books", force: :cascade do |t|
@@ -100,6 +105,64 @@ ActiveRecord::Schema.define(version: 2023_09_08_184802) do
     t.index ["genre_id"], name: "index_remote_parse_goals_on_genre_id"
   end
 
+  create_table "searches", force: :cascade do |t|
+    t.bigint "user_id"
+    t.integer "genre_filter"
+    t.integer "start_date_filter"
+    t.integer "end_date_filter"
+    t.integer "rating_litres_average_filter"
+    t.integer "rating_litres_votes_count_filter"
+    t.integer "rating_livelib_average_filter"
+    t.integer "rating_livelib_votes_count_filter"
+    t.integer "writing_year_filter"
+    t.integer "pages_count_filter"
+    t.integer "comments_count_filter"
+    t.integer "genre_int_id"
+    t.integer "start_date_added_3i"
+    t.integer "start_date_added_2i"
+    t.integer "start_date_added_1i"
+    t.integer "end_date_added_3i"
+    t.integer "end_date_added_2i"
+    t.integer "end_date_added_1i"
+    t.integer "rating_litres_average"
+    t.integer "rating_litres_votes_count"
+    t.integer "rating_livelib_average"
+    t.integer "rating_livelib_votes_count"
+    t.integer "writing_year"
+    t.integer "pages_count"
+    t.integer "comments_count"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["user_id"], name: "index_searches_on_user_id"
+  end
+
+  create_table "user_books", force: :cascade do |t|
+    t.bigint "user_id"
+    t.bigint "book_id"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["book_id"], name: "index_user_books_on_book_id"
+    t.index ["user_id", "book_id"], name: "index_user_books_on_user_id_and_book_id", unique: true
+    t.index ["user_id"], name: "index_user_books_on_user_id"
+  end
+
+  create_table "users", force: :cascade do |t|
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.string "email", default: "", null: false
+    t.string "encrypted_password", default: "", null: false
+    t.string "reset_password_token"
+    t.datetime "reset_password_sent_at"
+    t.datetime "remember_created_at"
+    t.string "confirmation_token"
+    t.datetime "confirmed_at"
+    t.datetime "confirmation_sent_at"
+    t.string "unconfirmed_email"
+    t.index ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true
+    t.index ["email"], name: "index_users_on_email", unique: true
+    t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
+  end
+
   create_table "worker_statuses", force: :cascade do |t|
     t.integer "pid"
     t.datetime "started_at"
@@ -124,4 +187,7 @@ ActiveRecord::Schema.define(version: 2023_09_08_184802) do
   add_foreign_key "book_ratings", "books"
   add_foreign_key "book_ratings", "ratings"
   add_foreign_key "remote_parse_goals", "genres"
+  add_foreign_key "searches", "users"
+  add_foreign_key "user_books", "books"
+  add_foreign_key "user_books", "users"
 end

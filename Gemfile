@@ -28,7 +28,7 @@ gem 'jbuilder', '~> 2.7'
 # Reduces boot times through caching; required in config/boot.rb
 gem 'bootsnap', '>= 1.4.4', require: false
 
-# Use slim template engine
+# Slim template engine
 gem 'slim-rails', '~> 3.6.0'
 # NET wrapper
 gem 'open-uri'
@@ -38,6 +38,14 @@ gem 'thinking-sphinx', '~> 5.5.0'
 # Create and fill application response
 gem 'active_model_serializers', '~> 0.10.13'
 gem 'oj'
+# Authentication
+gem 'devise', '~> 4.0'
+# GitHub API
+gem 'octokit', '~> 5.0'
+# UI - icons
+gem 'octicons_helper', '~> 18.2.0'
+# Authorization
+gem 'cancancan', '~> 3.5.0'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
@@ -53,6 +61,8 @@ group :development do
   gem 'listen', '~> 3.3'
   # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
   gem 'spring'
+  # Mails viewer
+  gem 'letter_opener', '~> 1.8.0'
 end
 
 group :test do

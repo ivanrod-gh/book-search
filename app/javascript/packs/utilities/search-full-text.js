@@ -1,5 +1,5 @@
 document.addEventListener('turbolinks:load', function() {
-  if (!document.querySelector('.search-index')) return
+  if (!document.querySelector('.searches-index')) return
 
   $('.search-full-text-form').on('ajax:success', function(e) {
     manageSearchResults(e.detail[0])
@@ -11,7 +11,6 @@ document.addEventListener('turbolinks:load', function() {
 })
 
 function manageSearchResults(data) {
-  console.log(data)
   $('.search-result-list').html('')
 
   var restrictedChars
