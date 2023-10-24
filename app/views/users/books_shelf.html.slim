@@ -3,10 +3,12 @@ h2 align='center' style='font-weight: bold;'
   |Действия
 
 div class="row justify-content-center pt-1 pb-1"
-  div class="col-md-10"
+  div class="col-md-6 col-sm-7 col-8"
     div class="card border-primary"
       div class='ms-1 me-1 mb-1'
         div class="card-body" align="center"
+          div class='user-books-send-to-mail-link-area'
+            = link_to 'Отправить на почту', user_books_send_to_mail_path, data: { confirm: 'В течение нескольких минут на вашу почту будет выслан упрощенный список книг и их авторов'}, remote: true, method: :get
           div class='user-books-destroy-all-link-area'
             = link_to 'Очистить книжную полку', user_books_destroy_all_path, data: { confirm: 'Вы уверены? Это действие полностью очистит книжную полку'}, remote: true, method: :delete
 h2 align='center' style='font-weight: bold;'

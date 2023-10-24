@@ -10,10 +10,20 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2023_10_10_140301) do
+ActiveRecord::Schema.define(version: 2023_10_23_120008) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "authorizations", force: :cascade do |t|
+    t.bigint "user_id"
+    t.string "provider", null: false
+    t.string "uid", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["provider", "uid"], name: "index_authorizations_on_provider_and_uid", unique: true
+    t.index ["user_id"], name: "index_authorizations_on_user_id"
+  end
 
   create_table "authors", force: :cascade do |t|
     t.string "int_id", null: false
@@ -53,11 +63,6 @@ ActiveRecord::Schema.define(version: 2023_10_10_140301) do
     t.index ["book_id"], name: "index_book_ratings_on_book_id"
     t.index ["rating_id"], name: "index_book_ratings_on_rating_id"
     t.index ["votes_count"], name: "index_book_ratings_on_votes_count"
-  end
-
-  create_table "book_shelves", force: :cascade do |t|
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
   end
 
   create_table "books", force: :cascade do |t|
@@ -180,6 +185,7 @@ ActiveRecord::Schema.define(version: 2023_10_10_140301) do
     t.datetime "updated_at", precision: 6, null: false
   end
 
+  add_foreign_key "authorizations", "users"
   add_foreign_key "book_authors", "authors"
   add_foreign_key "book_authors", "books"
   add_foreign_key "book_genres", "books"

@@ -7,7 +7,7 @@ RSpec.describe UserBooksController, type: :controller do
   let(:user_book) { create(:user_book, user: user, book: book) }
   let(:another_user_book) { create(:user_book, user: user, book: another_book) }
 
-  describe 'if callef from authorized user' do
+  describe 'if called from authorized user' do
     before { login(user) }
 
     it 'assign requested user book to @user_book' do
@@ -87,6 +87,15 @@ RSpec.describe UserBooksController, type: :controller do
       another_user_book
       delete :destroy_all, format: :js
       expect(response.body).to eq respond.to_json
+    end
+  end
+
+  describe 'GET #send_to_mail' do
+    before { login(user) }
+
+    it 'calls BookShelfDownloadJob with current_user = user-caller' do
+      expect(BookShelfDownloadJob).to receive(:perform_later).with(user)
+      get :send_to_mail, format: :js
     end
   end
 end

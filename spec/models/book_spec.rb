@@ -25,18 +25,11 @@ RSpec.describe Book, type: :model do
       before { clear_book_dates_added_list }
 
       it 'default dates if no book exist' do
-        puts "111111111111111"
-        p Book.first_and_last_date_added
-        p default_dates
         expect(Book.first_and_last_date_added).to eq default_dates
       end
 
       it 'book dates if books exist' do
         books_with_dates_added
-        
-        puts "2222222222222"
-        p Book.first_and_last_date_added
-        p book_dates
         expect(Book.first_and_last_date_added).to eq book_dates
       end
     end

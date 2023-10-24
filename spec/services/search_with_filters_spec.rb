@@ -12,6 +12,10 @@ RSpec.describe Services::SearchWithFilters do
   let(:params_without_page) { { param1: 1, param2: 2, param3: 3 } }
   let(:params_with_page) { { param1: 1, param2: 2, param3: 3, page: 2 } }
   let(:params_page_only) { { page: 2 } }
+  let(:user) { create(:user) }
+  let(:book) { create(:book) }
+  let(:user_book) { create(:user_book, user: user, book: book) }
+  let(:search) { create(:search, user: user) }
 
   it 'respond with warning if genre does not exist' do
     expect(Services::SearchWithFilters.new(params_with_genre).call).to eq warning_genre
@@ -59,5 +63,39 @@ RSpec.describe Services::SearchWithFilters do
 
   it 'respond with page only params data if request has page query' do
     expect((Services::SearchWithFilters.new(params_with_page).call)[:params]).to eq params_page_only
+  end
+
+  it 'respond with user data' do
+    expect(Services::SearchWithFilters.new({}).call.key?(:user)).to eq true
+  end
+
+  context 'if called from unauthorized user user data in respond' do
+    it 'has no id, book_ids, searches_updated_at_and_id' do
+      expect((Services::SearchWithFilters.new({}).call)[:user].key?(:id)).to eq false
+      expect((Services::SearchWithFilters.new({}).call)[:user].key?(:book_ids)).to eq false
+      expect((Services::SearchWithFilters.new({}).call)[:user].key?(:searches_updated_at_and_id)).to eq false
+    end
+  end
+
+  context 'if called from authorized user user data in respond' do
+    it 'has id' do
+      expect((Services::SearchWithFilters.new({}, user).call)[:user].key?(:id)).to eq true
+      expect((Services::SearchWithFilters.new({}, user).call)[:user][:id]).to eq user.id
+    end
+
+    it 'has book_ids' do
+      user_book
+      expect((Services::SearchWithFilters.new({}, user).call)[:user].key?(:book_ids)).to eq true
+      expect((Services::SearchWithFilters.new({}, user).call)[:user][:book_ids]).to eq user.books.ids
+    end
+
+    it 'has searches_updated_at_and_id' do
+      search
+      searches_data = [{id: search.id, updated_at: search.updated_at.to_s}]
+      expect((Services::SearchWithFilters.new({}, user).call)[:user].key?(:searches_updated_at_and_id)).to eq true
+      expect(
+        (Services::SearchWithFilters.new({}, user).call)[:user][:searches_updated_at_and_id]
+      ).to eq searches_data
+    end
   end
 end

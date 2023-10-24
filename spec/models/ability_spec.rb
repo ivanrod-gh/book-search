@@ -26,6 +26,7 @@ RSpec.describe Ability, type: :model do
     it { should     be_able_to :create, UserBook }
     it { should     be_able_to :destroy, UserBook }
     it { should     be_able_to :destroy_all, UserBook }
+    it { should     be_able_to :send_to_mail, UserBook }
     it { should_not be_able_to :read, :all }
     it { should_not be_able_to :manage, :all }
   end

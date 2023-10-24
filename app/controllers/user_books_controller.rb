@@ -23,6 +23,12 @@ class UserBooksController < ApplicationController
     render json: { all_destroyed: current_user.user_books.destroy_all.count.positive? }
   end
 
+  def send_to_mail
+    authorize! :send_to_mail, UserBook
+    BookShelfDownloadJob.perform_later(current_user)
+    render json: {}
+  end
+
   private
 
   def find_user_book

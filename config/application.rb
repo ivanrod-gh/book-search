@@ -32,6 +32,9 @@ module BookSearch
       app.routes_reloader.paths.delete_if {|path| path =~ /actionmailbox/ }
     }
 
+    config.active_job.queue_adapter = :sidekiq
+    config.action_mailer.deliver_later_queue_name = 'mailers'
+
     config.generators do |g|
       g.test_framework :rspec,
                        request_specs: false,

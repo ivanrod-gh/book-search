@@ -16,6 +16,6 @@ class Ability
   def user_abilities
     can %i[index full_text with_filters retrieve_old_search], Search
     can %i[profile books_shelf books_show], User
-    can %i[create destroy destroy_all], UserBook
+    can %i[create destroy destroy_all send_to_mail], UserBook
   end
 end

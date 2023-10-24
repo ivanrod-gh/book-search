@@ -6,6 +6,8 @@ require_relative '../config/environment'
 abort("The Rails environment is running in production mode!") if Rails.env.production?
 require 'rspec/rails'
 require 'cancan/matchers'
+require 'sidekiq/testing'
+Sidekiq::Testing.fake!
 # Add additional requires below this line. Rails is not loaded until this point!
 
 # Requires supporting ruby files with custom matchers and macros, etc, in
@@ -66,10 +68,10 @@ RSpec.configure do |config|
   config.include Devise::Test::ControllerHelpers, type: :controller
   config.include FeatureHelpers, type: :feature
   config.include ControllerHelpers, type: :controller
-  config.include ServiceHelpers, type: :service
+  config.include WaitForAjax, type: :feature
 
   Capybara.default_max_wait_time = 5
-  config.include WaitForAjax, type: :feature
+  Capybara.javascript_driver = :selenium_chrome_headless
 
   config.after(:all) do
     FileUtils.rm_rf("#{Rails.root}/tmp/storage", secure: true)

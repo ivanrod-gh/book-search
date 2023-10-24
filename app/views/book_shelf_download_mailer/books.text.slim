@@ -1,0 +1,6 @@
+- if @list.size.positive?
+  |Книги и их авторы (без разделителей):
+  - @list.each do |item|
+    = "\r\n#{item[:book][:name]}    #{item[:book][:authors]}"
+- else
+  |На книжной полке пока нет сохраненных книг

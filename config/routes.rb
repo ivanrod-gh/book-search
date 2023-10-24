@@ -1,5 +1,5 @@
 Rails.application.routes.draw do
-  devise_for :users
+  devise_for :users, controllers: { omniauth_callbacks: 'oauth_callbacks' }
 
   root 'searches#index'
   
@@ -20,4 +20,5 @@ Rails.application.routes.draw do
   post 'user_books/create'
   delete 'user_books/destroy'
   delete 'user_books/destroy_all'
+  get 'user_books/send_to_mail'
 end

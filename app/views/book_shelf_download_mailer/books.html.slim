@@ -1,0 +1,12 @@
+- if @list.size.positive?
+  |Книги и их авторы (без разделителей):
+  ul
+    - @list.each do |item|
+      li
+        span
+          = item[:book][:name]
+        |  
+        span style='margin-left: 30px;'
+          = item[:book][:authors]
+- else
+  |На книжной полке пока нет сохраненных книг

@@ -63,7 +63,7 @@ div.paginate-area
 
 div class='search-full-text-minimum-length-warning-message-template hide'
   div class='row' align='center'
-    div class='col-sm-12'
+    div class='col-12'
       |Длина запроса должна быть от 
       span class='query-minimum-length' style='color: red;'
       |  до 
@@ -72,78 +72,78 @@ div class='search-full-text-minimum-length-warning-message-template hide'
       span class='query-current-length' style='color: red;'
 div class='search-full-text-restricted-chars-warning-message-template hide'
   div class='row' align='center'
-    div class='col-sm-12'
+    div class='col-12'
       |В запросе присутствуют запрещенные символы: 
       span class='restricted-chars-list' style='color: red;'
 div class='search-full-text-book-message-template hide'
   div class='row' align='center'
-    div class='col-sm-12'
+    div class='col-12'
       |Найденные книги:
 div class='search-full-text-book-header-template hide'
   div class='row'
-    div class='col-sm-2'
-    div class='col-sm-4 d-flex justify-content-center align-items-center'
+    div class='col-2'
+    div class='col-4 d-flex justify-content-center align-items-center'
         |Название
-    div class='col-sm-1 d-flex justify-content-center align-items-center'
+    div class='col-1 d-flex justify-content-center align-items-center'
         |Год
-    div class='col-sm-3 d-flex justify-content-center align-items-center'
+    div class='col-3 d-flex justify-content-center align-items-center'
         |Автор
-    div class='col-sm-2'
+    div class='col-2'
 div class='search-full-text-author-message-template hide'
   div class='row' align='center'
-    div class='col-sm-12'
+    div class='col-12'
       |Найденные авторы:
 div class='search-full-text-author-header-template hide'
   div class='row'
-    div class='col-sm-2'
-    div class='col-sm-4 d-flex justify-content-center align-items-center'
+    div class='col-2'
+    div class='col-4 d-flex justify-content-center align-items-center'
         |ФИО
-    div class='col-sm-1 d-flex justify-content-center align-items-center'
+    div class='col-1 d-flex justify-content-center align-items-center'
         |Книг
 div class='search-full-text-maximum-results-warning-message-template hide'
   div class='row' align='center'
-    div class='col-sm-12 mt-2 mb-2'
+    div class='col-12 mt-2 mb-2'
       |Показаны первые 
       span class='results-count' style='color: red;'
       |  результатов
 div class='search-nothing-found-warning-message-template hide'
   div class='row' align='center'
-    div class='col-sm-12'
+    div class='col-12'
       |По вашему запросу ничего не найдено
 div class='server-respond-error-warning-message-template hide'
   div class='row' align='center'
-    div class='col-sm-12'
+    div class='col-12'
       |При обработке вашего запроса произошла ошибка
 div class='search-with-filters-book-header-template hide'
   - if can?(:books_shelf, User)
     div class='row'
-      div class='col-sm-1' align='center'
+      div class='col-1' align='center'
         |Рейтинг Litres
-      div class='col-sm-1' align='center'
+      div class='col-1' align='center'
         |Рейтинг Livelib
-      div class='col-sm-5 d-flex justify-content-center align-items-center'
+      div class='col-5 d-flex justify-content-center align-items-center'
         |Название
-      div class='col-sm-2' align='center'
+      div class='col-2' align='center'
         |Год, страниц, 
         |комментариев
-      div class='col-sm-3 d-flex justify-content-center align-items-center'
+      div class='col-3 d-flex justify-content-center align-items-center'
         |Автор
   - else
     div class='row'
-      div class='col-sm-1' align='center'
+      div class='col-1' align='center'
         |Рейтинг Litres
-      div class='col-sm-1' align='center'
+      div class='col-1' align='center'
         |Рейтинг Livelib
-      div class='col-sm-4 d-flex justify-content-center align-items-center'
+      div class='col-4 d-flex justify-content-center align-items-center'
         |Название
-      div class='col-sm-1 d-flex justify-content-center align-items-center'
+      div class='col-1 d-flex justify-content-center align-items-center'
         |Год
-      div class='col-sm-1 d-flex justify-content-center align-items-center'
+      div class='col-1 d-flex justify-content-center align-items-center'
         |Страниц
-      div class='col-sm-1 d-flex justify-content-center align-items-center'
+      div class='col-1 d-flex justify-content-center align-items-center'
         |Коммен-
         |тариев
-      div class='col-sm-3 d-flex justify-content-center align-items-center'
+      div class='col-3 d-flex justify-content-center align-items-center'
         |Автор
 div class='paginate-data-template hide'
 div class='paginate-links-list-template hide'

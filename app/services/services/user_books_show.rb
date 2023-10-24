@@ -61,7 +61,7 @@ module Services
 
     def inject_user_data_in_results
       @results[:user] ||= {}
-      @results[:user][:id] = @current_user.id if @current_user
+      @results[:user][:id] = @current_user.id
     end
   end
 end

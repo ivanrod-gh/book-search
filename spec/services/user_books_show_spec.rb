@@ -27,4 +27,16 @@ RSpec.describe Services::UserBooksShow do
     per_page = Services::UserBooksShow::PER_PAGE
     expect((Services::UserBooksShow.new({}, user).call)[:results][:per_page]).to eq per_page
   end
+
+  it 'respond with page only params data' do
+    user_book
+    params_page = { page: 0 }
+    expect((Services::UserBooksShow.new({}, user).call)[:params]).to eq params_page
+  end
+
+  it 'respond with user data with user id' do
+    expect(Services::UserBooksShow.new({}, user).call.key?(:user)).to eq true
+    expect((Services::UserBooksShow.new({}, user).call)[:user].key?(:id)).to eq true
+    expect((Services::UserBooksShow.new({}, user).call)[:user][:id]).to eq user.id
+  end
 end

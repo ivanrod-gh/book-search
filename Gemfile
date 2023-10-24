@@ -46,6 +46,11 @@ gem 'octokit', '~> 5.0'
 gem 'octicons_helper', '~> 18.2.0'
 # Authorization
 gem 'cancancan', '~> 3.5.0'
+# Third party authentication
+gem 'omniauth', '~> 1.9.2'
+gem 'omniauth-github'
+# Adapter sidekiq for ActiveJob
+gem 'sidekiq', '~> 7.0.0'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console

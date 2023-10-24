@@ -2,6 +2,10 @@
 
 module Services
   class PartnerDBParse
+    # Обработка 250*100=25.000 записей
+    BOOKS_COUNT_FOR_ITERATION = 250
+    ITERATIONS_COUNT = 100
+
     def initialize(task)
       @task_name = task['name']
       parsed_task_data = JSON.parse(task.data)
@@ -19,7 +23,7 @@ module Services
 
       File.open(@file_name, 'r', encoding: 'utf-8').each_line do |line|
         raw_parse(line)
-        break if @segment_index == 3 # _TEST_LIMIT_ !!!
+        break if @segment_index == ITERATIONS_COUNT
       end
       manage_segment_parsing if @output.size.positive?
       delete_partner_db_file
@@ -40,7 +44,7 @@ module Services
 
     def raw_parse(line)
       @eol_counter += 1 if line.include?(@eol)
-      if @eol_counter == 1000
+      if @eol_counter == BOOKS_COUNT_FOR_ITERATION
         parse_raw_data(line)
       else
         @output << line
@@ -55,7 +59,8 @@ module Services
       @segment_index += 1
       Rails.logger.info "Segment N#{@segment_index} passed"
       @output = (splitted_line[1]).to_s
-      sleep(1) # просто некое ограничение на нагрузку процессора
+      # Ограничение на нагрузку процессора
+      sleep(1)
     end
 
     def manage_segment_parsing
@@ -186,7 +191,7 @@ module Services
       if year_data =~ /[ -._]/
         calculdate_year(year_data)
       else
-        ((year = year_data.to_i.positive?) ? year : nil)
+        (year = year_data.to_i).positive? ? year : nil
       end
     end
 
