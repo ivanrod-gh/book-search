@@ -8,30 +8,34 @@ html
     = stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload'
     = javascript_pack_tag 'application', 'data-turbolinks-track': 'reload'
   body
-    div class='row mt-2'
-      div class='col-4'
-        div class='ms-2'
-          = link_to 'BookSearch', root_path, { class: 'brand-link' }
-      div class='col-8 d-flex justify-content-end align-items-center'
-        - if current_user.present?
-        - if can?(:profile, User) && can?(:books_shelf, User)
-          div class='pe-1 ms-4 me-2'
-            = link_to 'Книжная полка', books_shelf_users_path
-          div class='pe-1 ms-4 me-2'
-            = link_to 'Настройки', profile_users_path
-          div class='pe-1 ms-4 me-2'
-            = link_to 'Выйти', destroy_user_session_path, method: :delete
-        - else
-          div class='pe-1 ms-4 me-2'
-            = link_to 'Войти', new_user_session_path
-          div class='pe-1 ms-4 me-2'
-            = link_to 'Зарегистрироваться', new_user_registration_path
-    - if notice
-      div class='alert alert-primary d-flex justify-content-center align-items-center mb-1 alert-dismissible fade show m-2' role='alert'
-        = notice
-        button type='button' class='btn-close' data-bs-dismiss='alert' aria-label='Close'
-    - if alert
-      div class='alert alert-danger d-flex justify-content-center align-items-center mb-1 alert-dismissible fade show m-2' role='alert'
-        = alert
-        button type='button' class='btn-close' data-bs-dismiss='alert' aria-label='Close'
-    = yield
+    div class='container'
+      div class='row mt-2'
+        div class='col-4'
+          div class='ms-2'
+            = link_to 'BookSearch', root_path, { class: 'brand-link' }
+        div class='col-8 d-flex justify-content-end align-items-center'
+          - if current_user.present?
+          - if can?(:profile, User) && can?(:books_shelf, User)
+            div class='pe-1 ms-4 me-2'
+              = link_to 'Книжная полка', books_shelf_users_path
+            div class='pe-1 ms-4 me-2'
+              = link_to 'Настройки', profile_users_path
+            div class='pe-1 ms-4 me-2'
+              = link_to 'Выйти', destroy_user_session_path, method: :delete
+          - else
+            div class='pe-1 ms-4 me-2'
+              = link_to 'Войти', new_user_session_path
+            div class='pe-1 ms-4 me-2'
+              = link_to 'Зарегистрироваться', new_user_registration_path
+      - if notice
+        div class='alert alert-primary d-flex justify-content-center align-items-center mb-1 alert-dismissible fade show m-2' role='alert'
+          = notice
+          button type='button' class='btn-close' data-bs-dismiss='alert' aria-label='Close'
+      - if alert
+        div class='alert alert-danger d-flex justify-content-center align-items-center mb-1 alert-dismissible fade show m-2' role='alert'
+          = alert
+          button type='button' class='btn-close' data-bs-dismiss='alert' aria-label='Close'
+      = yield
+    div class='footer'
+      |2023, Родионов Иван, репозиторий GitHub -  
+      = link_to 'BookSearch', 'https://github.com/ivanrod-gh/book-search', target: '_blank', rel: 'noopener'
