@@ -9,7 +9,7 @@ feature 'User can watch his books shelf', %q{
   given(:md_genre) { create(:genre, :modern_detectives) }
   given(:with_genre_book) do
     book = create(:book, name: 'with_genre')
-    BookGenre.create!(book: book, genre: md_genre)
+    BookGenre.create(book: book, genre: md_genre)
   end
   given(:first_added_book) { create(:book, :date_added_1998, name: 'first_added') }
   given(:last_added_book) { create(:book, :date_added_2025, name: 'last_added') }

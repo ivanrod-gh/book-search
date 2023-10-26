@@ -2,7 +2,7 @@ require 'rails_helper'
 
 RSpec.describe Services::WorkerTaskRequestRemoteParseGoalsFill do
   let(:create_genres) do
-    RemoteParseGoal::GOAL_TEMPLATES.each { |goal| Genre.create!(int_id: goal['genre_int_id'], name: 'test_name')}
+    RemoteParseGoal::GOAL_TEMPLATES.each { |goal| Genre.create(int_id: goal['genre_int_id'], name: 'test_name')}
   end
 
 

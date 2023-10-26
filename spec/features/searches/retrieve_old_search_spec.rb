@@ -8,17 +8,17 @@ feature 'User can use old searches as new seach parameters', %q{
   given(:md_genre) { create(:genre, :modern_detectives) }
   given(:with_genre_book) do
     book = create(:book, name: 'with_genre')
-    BookGenre.create!(book: book, genre: md_genre)
+    BookGenre.create(book: book, genre: md_genre)
   end
   given(:first_added_book) { create(:book, :date_added_1998, name: 'first_added') }
   given(:last_added_book) { create(:book, :date_added_2025, name: 'last_added') }
   given(:with_litres_rating_book) do
     book = create(:book, name: 'litres_rating')
-    BookRating.create!(book_id: book.id, rating: Rating::INSTANCES['litres'], average: 8, votes_count: 10)
+    BookRating.create(book_id: book.id, rating: Rating::INSTANCES['litres'], average: 8, votes_count: 10)
   end
   given(:with_livelib_rating_book) do
     book = create(:book, name: 'livelib_rating')
-    BookRating.create!(book_id: book.id, rating: Rating::INSTANCES['livelib'], average: 7, votes_count: 15)
+    BookRating.create(book_id: book.id, rating: Rating::INSTANCES['livelib'], average: 7, votes_count: 15)
   end
   given(:with_writing_year_book) { create(:book, writing_year: 12345, name: 'writing_year') }
   given(:with_pages_count) { create(:book, pages_count: 12345, name: 'pages_count') }
@@ -36,8 +36,8 @@ feature 'User can use old searches as new seach parameters', %q{
   # Необходимо, т.к. тестовая среда уничтожает данные Rating и замороженный хэш начинает указывать на пустое место
   given(:reinitialize_rating_instances_constant) do
     Rating::INSTANCES = {
-      'litres' => (Rating.find_by(name: 'litres') || Rating.create!(name: 'litres')),
-      'livelib' => (Rating.find_by(name: 'livelib') || Rating.create!(name: 'livelib'))
+      'litres' => (Rating.find_by(name: 'litres') || Rating.create(name: 'litres')),
+      'livelib' => (Rating.find_by(name: 'livelib') || Rating.create(name: 'livelib'))
     }
   end
   given(:user) { create(:user) }

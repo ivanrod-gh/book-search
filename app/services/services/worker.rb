@@ -20,7 +20,7 @@ module Services
     attr_accessor :worker_status
 
     def initialize
-      (@worker_status = WorkerStatus.first).nil? ? @worker_status = WorkerStatus.create! : worker_status
+      (@worker_status = WorkerStatus.first).nil? ? @worker_status = WorkerStatus.create : worker_status
     end
 
     def call
@@ -60,7 +60,7 @@ module Services
     end
 
     def reset_worker_status(type = 'initial')
-      worker_status.update!(
+      worker_status.update(
         pid: nil,
         started_at: (type == 'initial' ? nil : WorkerStatus.first.started_at),
         cooldown_until: nil,
@@ -133,7 +133,7 @@ module Services
 
     def reset_worker_status_with_cooldown(reason)
       try = calculate_current_try(reason)
-      worker_status.update!(
+      worker_status.update(
         pid: nil,
         cooldown_until: Time.zone.now + calculate_cooldown(reason, try).seconds,
         cooldown_reason: reason,

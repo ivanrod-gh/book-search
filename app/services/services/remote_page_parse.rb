@@ -92,9 +92,9 @@ module Services
 
     def rating_create_or_update(book, book_data, book_rating, source)
       if book_rating
-        book_rating.update!(average: book_data["#{source}_rating"], votes_count: book_data["#{source}_votes_count"])
+        book_rating.update(average: book_data["#{source}_rating"], votes_count: book_data["#{source}_votes_count"])
       else
-        BookRating.create!(book: book, rating: Rating::INSTANCES[source.to_s], average: book_data["#{source}_rating"],
+        BookRating.create(book: book, rating: Rating::INSTANCES[source.to_s], average: book_data["#{source}_rating"],
                            votes_count: book_data["#{source}_votes_count"])
       end
     end

@@ -49,7 +49,7 @@ module Services
     end
 
     def save_search(search_params)
-      Search.create!(search_params)
+      Search.create(search_params)
     end
 
     def update_seach(search_params)

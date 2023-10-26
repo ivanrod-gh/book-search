@@ -44,7 +44,7 @@ module Services
     end
 
     def pages_and_comments_count_data(book)
-      book.update!(pages_count: pages_count, comments_count: comments_count)
+      book.update(pages_count: pages_count, comments_count: comments_count)
     end
 
     def pages_count
@@ -64,7 +64,7 @@ module Services
     end
 
     def pages_count_data(book)
-      book.update!(pages_count: pages_count)
+      book.update(pages_count: pages_count)
     end
 
     def manage_rating(book)
@@ -73,7 +73,7 @@ module Services
     end
 
     def book_rating(book, source)
-      BookRating.create!(book: book, rating: Rating::INSTANCES[source], average: average, votes_count: votes_count)
+      BookRating.create(book: book, rating: Rating::INSTANCES[source], average: average, votes_count: votes_count)
     end
 
     def average

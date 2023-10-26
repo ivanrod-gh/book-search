@@ -81,7 +81,7 @@ module Services
     def manage_genres(all_genres)
       all_genres.each do |int_id, name|
         genre = Genre.find_by(int_id: int_id)
-        genre.nil? ? Genre.create!(int_id: int_id, name: name) : genre.update!(name: name)
+        genre.nil? ? Genre.create(int_id: int_id, name: name) : genre.update(name: name)
       end
     end
 
@@ -128,7 +128,7 @@ module Services
 
     def find_or_create_book(book_data)
       book = Book.find_by(int_id: book_data['int_id'])
-      book.nil? ? Book.create!(int_id: book_data['int_id']) : book
+      book.nil? ? Book.create(int_id: book_data['int_id']) : book
     end
 
     def manage_book_genres(book_data, book)
@@ -138,7 +138,7 @@ module Services
         BookGenre.find_by(book: book, genre: genres.find_by(int_id: genre_int_id)).destroy
       end
       (book_data['genre_int_ids'] - book_genre_int_ids).each do |genre_int_id|
-        BookGenre.create!(book: book, genre: genres.find_by(int_id: genre_int_id))
+        BookGenre.create(book: book, genre: genres.find_by(int_id: genre_int_id))
       end
     end
 
@@ -251,7 +251,7 @@ module Services
     end
 
     def update_book(book, book_data)
-      book.update!(writing_year: book_data['writing_year'], date: book_data['date'], name: book_data['name'])
+      book.update(writing_year: book_data['writing_year'], date: book_data['date'], name: book_data['name'])
     end
 
     def manage_authors(book_data)
@@ -262,7 +262,7 @@ module Services
     end
 
     def create_author(author_data)
-      Author.create!(
+      Author.create(
         int_id: author_data['int_id'],
         name: author_data['name'],
         url: author_data['url']
@@ -270,7 +270,7 @@ module Services
     end
 
     def update_author(author, author_data)
-      author.update!(
+      author.update(
         name: author_data['name'],
         url: author_data['url']
       )
@@ -283,7 +283,7 @@ module Services
         BookAuthor.find_by(book: book, author: authors.find_by(int_id: author_int_id)).destroy
       end
       (book_data['author_int_ids'] - book_author_int_ids).each do |author_int_id|
-        BookAuthor.create!(book: book, author: authors.find_by(int_id: author_int_id))
+        BookAuthor.create(book: book, author: authors.find_by(int_id: author_int_id))
       end
     end
 

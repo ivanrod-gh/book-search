@@ -13,7 +13,7 @@ module Services
     private
 
     def create_remote_parse_goal(genre, goal)
-      RemoteParseGoal.create!(
+      RemoteParseGoal.create(
         genre: genre,
         order: goal['order'],
         limit: goal['limit'],

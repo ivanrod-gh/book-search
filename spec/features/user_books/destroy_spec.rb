@@ -9,15 +9,15 @@ feature 'User can remove book information from books shelf', %q{
   given(:md_genre) { create(:genre, :modern_detectives) }
   given(:with_genre_book) do
     book = create(:book, name: 'with_genre')
-    BookGenre.create!(book: book, genre: md_genre)
+    BookGenre.create(book: book, genre: md_genre)
     book
   end
   given(:with_genre_user_book) { create(:user_book, user: user, book: with_genre_book) }
   # Необходимо, т.к. тестовая среда уничтожает данные Rating и замороженный хэш начинает указывать на пустое место
   given(:reinitialize_rating_instances_constant) do
     Rating::INSTANCES = {
-      'litres' => (Rating.find_by(name: 'litres') || Rating.create!(name: 'litres')),
-      'livelib' => (Rating.find_by(name: 'livelib') || Rating.create!(name: 'livelib'))
+      'litres' => (Rating.find_by(name: 'litres') || Rating.create(name: 'litres')),
+      'livelib' => (Rating.find_by(name: 'livelib') || Rating.create(name: 'livelib'))
     }
   end
 

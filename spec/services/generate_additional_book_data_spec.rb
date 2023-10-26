@@ -5,8 +5,8 @@ RSpec.describe Services::GenerateAdditionalBookData do
   # Необходимо, т.к. тестовая среда уничтожает данные Rating и замороженный хэш начинает указывать на пустое место
   let(:reinitialize_rating_instances_constant) do
     Rating::INSTANCES = {
-      'litres' => (Rating.find_by(name: 'litres') || Rating.create!(name: 'litres')),
-      'livelib' => (Rating.find_by(name: 'livelib') || Rating.create!(name: 'livelib'))
+      'litres' => (Rating.find_by(name: 'litres') || Rating.create(name: 'litres')),
+      'livelib' => (Rating.find_by(name: 'livelib') || Rating.create(name: 'livelib'))
     }
   end
 
