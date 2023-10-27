@@ -51,10 +51,14 @@
 Для начального разворачивания приложения написан LimitedWorkerJob, который формирует задачи (WorkerTask) для сервиса Worker и запускает его на выполнение.
 
 В окружении development:
-- bundle exec bin/rails runner -e development LimitedWorkerJob.perform_now
+```console
+bundle exec bin/rails runner -e development LimitedWorkerJob.perform_now
+```
 
 В окружении production:
-- bundle exec bin/rails runner -e production LimitedWorkerJob.perform_now
+```console
+bundle exec bin/rails runner -e production LimitedWorkerJob.perform_now
+```
 
 После вызова сервис Worker скачает, пропарсит и удалит "партнерские" БД (размер одной скачанной и распакованной "партнерской" БД может быть более 3.5 ГБ), недостающие данные будут сгенерированы.
 
