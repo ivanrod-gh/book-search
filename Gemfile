@@ -68,6 +68,12 @@ group :development do
   gem 'spring'
   # Mails viewer
   gem 'letter_opener', '~> 1.8.0'
+  # Deploy
+  gem 'capistrano', '~> 3.17.0', require: false
+  gem 'capistrano-bundler', '~> 2.1.0', require: false
+  gem 'capistrano-rails', '~> 1.6.0', require: false
+  gem 'capistrano-rbenv', '~> 2.2.0', require: false
+  gem 'capistrano3-unicorn', '~> 0.2.1', require: false
 end
 
 group :test do
