@@ -7,6 +7,12 @@ RSpec.describe Services::PartnerDBDownload do
   let(:downloaded_detailed_file) { File.open(JSON.parse(task_detailed_db.data)['file_name'], 'w') }
 
   describe 'with partner db (simple) file' do
+    it 'service ensures that folder for simple partner db file exist' do
+      allow_any_instance_of(Services::PartnerDBDownload).to receive(:download_file)
+      Services::PartnerDBDownload.new(task_simple_db).call
+      expect(Dir.exist?('shared/partner_db')).to eq true
+    end
+
     it 'does nothing if file download is unavailable' do
       allow_any_instance_of(Services::PartnerDBDownload).to receive(:download_file)
       Services::PartnerDBDownload.new(task_simple_db).call
@@ -22,6 +28,12 @@ RSpec.describe Services::PartnerDBDownload do
   end
 
   describe 'with partner db (detailed) file' do
+    it 'service ensures that folder for detailed partner db file exist' do
+      allow_any_instance_of(Services::PartnerDBDownload).to receive(:download_file)
+      Services::PartnerDBDownload.new(task_detailed_db).call
+      expect(Dir.exist?('shared/partner_db')).to eq true
+    end
+
     it 'does nothing if file download is unavailable' do
       allow_any_instance_of(Services::PartnerDBDownload).to receive(:download_file)
       Services::PartnerDBDownload.new(task_detailed_db).call

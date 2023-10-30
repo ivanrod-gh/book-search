@@ -10,11 +10,19 @@ module Services
     end
 
     def call
+      manage_file_directory
       download_file
       finish_conditions_satisfied?
     end
 
     private
+
+    def manage_file_directory
+      dir_path = @file_name.split('/')
+      dir_path.pop
+      dir_path = dir_path.join('/')
+      FileUtils.mkdir_p(dir_path) unless Dir.exist?(dir_path)
+    end
 
     def download_file
       `wget -O #{@file_name} #{@address}`
