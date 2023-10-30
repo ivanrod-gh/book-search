@@ -21,4 +21,6 @@ Rails.application.routes.draw do
   delete 'user_books/destroy'
   delete 'user_books/destroy_all'
   get 'user_books/send_to_mail'
+
+  get '*unmatched_route', to: 'application#not_found'
 end
