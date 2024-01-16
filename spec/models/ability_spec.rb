@@ -19,7 +19,7 @@ RSpec.describe Ability, type: :model do
     it { should     be_able_to :index, Search }
     it { should     be_able_to :full_text, Search }
     it { should     be_able_to :with_filters, Search }
-    it { should     be_able_to :retrieve_old_search, Search }
+    it { should     be_able_to :retrieve_old_search_parameters, Search }
     it { should     be_able_to :profile, User }
     it { should     be_able_to :books_shelf, User }
     it { should     be_able_to :books_show, User }

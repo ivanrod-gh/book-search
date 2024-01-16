@@ -28,7 +28,7 @@ div.search-selector-area
       div class='search-full-text-button-area btn border border-primary p-1 m-2' style='width: 45%;'
         div
           |Поиск книги или автора
-- if can?(:retrieve_old_search, Search)
+- if can?(:retrieve_old_search_parameters, Search)
   div.old-search-area
     div class='row'
       div class='d-flex justify-content-center align-items-center m-2'
@@ -37,7 +37,7 @@ div.search-selector-area
             div align='center'
               |Использовать параметры предыдущего поиска:
             div align='center'
-              = form_with url: '/searches/retrieve_old_search', local: false do |f|
+              = form_with url: '/searches/retrieve_old_search_parameters', local: false do |f|
                 = f.select :id, current_user.searches.pluck(:updated_at, :id), {}, style: 'width: 250px;'
                 span class='ms-3'
                   = f.submit 'Применить'

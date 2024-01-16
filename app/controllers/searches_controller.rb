@@ -16,8 +16,8 @@ class SearchesController < ApplicationController
     render json: Services::SearchWithFilters.new(params, current_user).call
   end
 
-  def retrieve_old_search
-    authorize! :retrieve_old_search, Search
+  def retrieve_old_search_parameters
+    authorize! :retrieve_old_search_parameters, Search
     render json: Services::SearchWithFiltersRequestRetrieve.new(params, current_user).call
   end
 end

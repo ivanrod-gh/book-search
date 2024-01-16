@@ -77,7 +77,7 @@ RSpec.describe SearchesController, type: :controller do
     end
   end
 
-  describe 'POST #retrieve_old_search' do
+  describe 'POST #retrieve_old_search_parameters' do
     let(:parameter) { 'value' }
     let(:service) { double('Services::SearchWithFiltersRequestRetrieve') }
     let(:controller_params) do
@@ -85,7 +85,7 @@ RSpec.describe SearchesController, type: :controller do
         "parameter"=>"value",
         "format"=>"js",
         "controller"=>"searches",
-        "action"=>"retrieve_old_search"
+        "action"=>"retrieve_old_search_parameters"
       )
     end
 
@@ -96,7 +96,7 @@ RSpec.describe SearchesController, type: :controller do
         allow(service).to receive(:call)
         expect(Services::SearchWithFiltersRequestRetrieve).to receive(:new).with(controller_params, user)
                                                                            .and_return(service)
-        post :retrieve_old_search, params: { parameter: parameter }, format: :js
+        post :retrieve_old_search_parameters, params: { parameter: parameter }, format: :js
       end
     end
   end

@@ -6,7 +6,7 @@ Rails.application.routes.draw do
   get 'searches/index'
   post 'searches/full_text'
   post 'searches/with_filters'
-  post 'searches/retrieve_old_search'
+  post 'searches/retrieve_old_search_parameters'
 
   # В маршрутах пользователя был убран id, т.к. Devise в любом случае запрашивает текущего пользователя
   # Работа с экземпляром текущего пользователя осуществляется через хелпер Devise current_user
