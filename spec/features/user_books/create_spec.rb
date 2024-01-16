@@ -25,7 +25,7 @@ feature 'User can save book information in books shelf', %q{
     scenario 'on search with filters page' do
       reinitialize_rating_instances_constant
       with_genre_book
-      visit(searches_index_path)
+      visit(searches_show_variants_path)
       click_on 'Найти'
       
       wait_for_ajax

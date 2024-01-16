@@ -29,7 +29,7 @@ feature 'User can remove book information from books shelf', %q{
 
     scenario 'on search with filters page' do
       reinitialize_rating_instances_constant
-      visit(searches_index_path)
+      visit(searches_show_variants_path)
       click_on 'Найти'
       
       wait_for_ajax
@@ -46,7 +46,7 @@ feature 'User can remove book information from books shelf', %q{
 
     scenario 'on books shelf page' do
       reinitialize_rating_instances_constant
-      visit(searches_index_path)
+      visit(searches_show_variants_path)
       click_on 'Книжная полка'
       
       wait_for_ajax

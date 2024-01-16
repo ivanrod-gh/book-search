@@ -35,7 +35,7 @@ feature 'User can remove all books information from books shelf', %q{
 
     scenario 'on books shelf page' do
       reinitialize_rating_instances_constant
-      visit(searches_index_path)
+      visit(searches_show_variants_path)
       click_on 'Книжная полка'
       
       wait_for_ajax

@@ -48,12 +48,12 @@ feature 'User can use old searches as new seach parameters', %q{
     scenario 'and after re-visit search page use old search parameters for a new search' do
       reinitialize_rating_instances_constant
       all_type_books
-      visit(searches_index_path)
+      visit(searches_show_variants_path)
       find(:xpath, "//div[@data-search-filter='search-filter-writing-year']").click
       fill_in 'writing_year', with: 1234
       click_on 'Найти'
 
-      visit(searches_index_path)
+      visit(searches_show_variants_path)
       find(".old-search-area input[type='submit']").click
       find(:xpath, "//div[@data-search-filter-item='search-filter-start-date-added']").click
       click_on 'Найти'

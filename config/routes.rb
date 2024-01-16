@@ -1,9 +1,9 @@
 Rails.application.routes.draw do
   devise_for :users, controllers: { omniauth_callbacks: 'oauth_callbacks' }
 
-  root 'searches#index'
+  root 'searches#show_variants'
   
-  get 'searches/index'
+  get 'searches/show_variants'
   post 'searches/full_text'
   post 'searches/with_filters'
   post 'searches/retrieve_old_search_parameters'

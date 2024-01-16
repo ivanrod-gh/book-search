@@ -1,5 +1,5 @@
 document.addEventListener('turbolinks:load', function() {
-  if (!document.querySelector('.searches-index')) return
+  if (!document.querySelector('.searches-show-variants')) return
 
   $('.search-full-text-form').on('ajax:success', function(e) {
     manageSearchResults(e.detail[0])

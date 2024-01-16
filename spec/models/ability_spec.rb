@@ -6,7 +6,7 @@ RSpec.describe Ability, type: :model do
   describe 'for guest' do
     let(:user) { nil }
 
-    it { should     be_able_to :index, Search }
+    it { should     be_able_to :show_variants, Search }
     it { should     be_able_to :full_text, Search }
     it { should     be_able_to :with_filters, Search }
     it { should_not be_able_to :read, :all }
@@ -16,7 +16,7 @@ RSpec.describe Ability, type: :model do
   describe 'for user' do
     let(:user) { create :user }
 
-    it { should     be_able_to :index, Search }
+    it { should     be_able_to :show_variants, Search }
     it { should     be_able_to :full_text, Search }
     it { should     be_able_to :with_filters, Search }
     it { should     be_able_to :retrieve_old_search_parameters, Search }

@@ -1,8 +1,8 @@
 # frozen_string_literal: true
 
 class SearchesController < ApplicationController
-  def index
-    authorize! :index, Search
+  def show_variants
+    authorize! :show_variants, Search
   end
 
   def full_text

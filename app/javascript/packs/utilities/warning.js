@@ -1,5 +1,5 @@
 document.addEventListener('turbolinks:load', function() {
-  if (!document.querySelector('.searches-index')) return
+  if (!document.querySelector('.searches-show-variants')) return
 
   document.querySelector('.warning-main').addEventListener('click', showWarning)
   document.querySelector('.warning-main').addEventListener('click', hideWarning)

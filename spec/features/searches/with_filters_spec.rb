@@ -45,7 +45,7 @@ feature 'User can search for books with filters', %q{
 
   describe 'Any user tries to search for a books', js: true do
     scenario 'with no filters then no books exist' do
-      visit(searches_index_path)
+      visit(searches_show_variants_path)
       click_on 'Найти'
 
       wait_for_ajax
@@ -57,7 +57,7 @@ feature 'User can search for books with filters', %q{
     scenario 'with no filters then all books exist' do
       reinitialize_rating_instances_constant
       all_type_books
-      visit(searches_index_path)
+      visit(searches_show_variants_path)
       click_on 'Найти'
 
       wait_for_ajax
@@ -77,7 +77,7 @@ feature 'User can search for books with filters', %q{
       before do
         reinitialize_rating_instances_constant
         all_type_books
-        visit(searches_index_path)
+        visit(searches_show_variants_path)
       end
 
       scenario 'with genre filter' do
@@ -266,7 +266,7 @@ feature 'User can search for books with filters', %q{
         reinitialize_rating_instances_constant
         forty_nine_books
         first_added_book
-        visit(searches_index_path)
+        visit(searches_show_variants_path)
         click_on 'Найти'
         within '.paginate-links-list' do
           click_on '2'
@@ -286,7 +286,7 @@ feature 'User can search for books with filters', %q{
     scenario 'and get his search request saved if books exist' do
       reinitialize_rating_instances_constant
       all_type_books
-      visit(searches_index_path)
+      visit(searches_show_variants_path)
       click_on 'Найти'
 
       wait_for_ajax

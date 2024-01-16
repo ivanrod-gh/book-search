@@ -11,7 +11,7 @@ feature 'User can search for books and authors with full-text search', %q{
 
   describe 'Any user tries to search for a book or author' do
     scenario 'with too short query', js: true do
-      visit(searches_index_path)
+      visit(searches_show_variants_path)
       find('.search-full-text-button-area').click
       fill_in 'query', with: 'a'
       click_on 'Найти'
@@ -21,7 +21,7 @@ feature 'User can search for books and authors with full-text search', %q{
     end
 
     scenario 'with too long query', js: true do
-      visit(searches_index_path)
+      visit(searches_show_variants_path)
       find('.search-full-text-button-area').click
       fill_in 'query', with: "a"*100
       click_on 'Найти'
@@ -31,7 +31,7 @@ feature 'User can search for books and authors with full-text search', %q{
     end
 
     scenario 'with invalid query', js: true do
-      visit(searches_index_path)
+      visit(searches_show_variants_path)
       find('.search-full-text-button-area').click
       fill_in 'query', with: 'abcde!%'
       click_on 'Найти'
@@ -41,7 +41,7 @@ feature 'User can search for books and authors with full-text search', %q{
     end
 
     scenario 'then book does not exist', sphinx: true, js: true do
-      visit(searches_index_path)
+      visit(searches_show_variants_path)
 
       find('.search-full-text-button-area').click
       fill_in 'query', with: attributes_for(:book, :frontier)[:name]
@@ -58,7 +58,7 @@ feature 'User can search for books and authors with full-text search', %q{
 
     scenario 'and find a book by full book name', sphinx: true, js: true do
       book
-      visit(searches_index_path)
+      visit(searches_show_variants_path)
 
       find('.search-full-text-button-area').click
       fill_in 'query', with: attributes_for(:book, :frontier)[:name]
@@ -75,7 +75,7 @@ feature 'User can search for books and authors with full-text search', %q{
 
     scenario 'and find a book by part of it name', sphinx: true, js: true do
       book
-      visit(searches_index_path)
+      visit(searches_show_variants_path)
 
       find('.search-full-text-button-area').click
       fill_in 'query', with: attributes_for(:book, :frontier)[:name][1..-1]
@@ -93,7 +93,7 @@ feature 'User can search for books and authors with full-text search', %q{
     scenario 'and find a book and an author', sphinx: true, js: true do
       specific_book
       specific_author
-      visit(searches_index_path)
+      visit(searches_show_variants_path)
 
       find('.search-full-text-button-area').click
       fill_in 'query', with: attributes_for(:book, :named_specific)[:name]

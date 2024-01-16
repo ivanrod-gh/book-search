@@ -1,7 +1,7 @@
 import { assignClickListenersToFiltersButtons } from "./search-type-selector.js"
 
 document.addEventListener('turbolinks:load', function() {
-  if (!document.querySelector('.searches-index')) return
+  if (!document.querySelector('.searches-show-variants')) return
 
   prepareSearchWithFiltersForm()
 

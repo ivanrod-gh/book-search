@@ -23,7 +23,7 @@ feature 'User can watch his books shelf', %q{
       with_genre_book
       first_added_user_book
       last_added_user_book
-      visit(searches_index_path)
+      visit(searches_show_variants_path)
       click_on 'Книжная полка'
 
       wait_for_ajax

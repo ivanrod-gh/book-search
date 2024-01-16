@@ -1,5 +1,5 @@
 document.addEventListener('turbolinks:load', function() {
-  if (!document.querySelector('.searches-index')) return
+  if (!document.querySelector('.searches-show-variants')) return
 
   document.querySelector('.search-with-filters-button-area').addEventListener('click', showSearchWithFiltersControlPanel)
   document.querySelector('.search-full-text-button-area').addEventListener('click', showSearchFullTextControlPanel)
