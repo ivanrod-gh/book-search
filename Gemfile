@@ -95,6 +95,8 @@ group :test do
   # Full-text search DB cleaner
   gem 'database_cleaner-active_record', '~> 2.1.0'
   gem 'launchy', '~> 2.5.0'
+  # Code coverage analyzer
+  gem 'simplecov', '~> 0.21.2', require: false
 end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem

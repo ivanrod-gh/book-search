@@ -1,5 +1,7 @@
 # BookSearch
 
+![coverage](https://img.shields.io/badge/coverage-97%25-brightgreen)
+
 Приложение по поиску книг с расширенным фильтром поискового запроса.
 
 В данный момент оперирует открытой информацией с litres.ru.

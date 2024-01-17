@@ -45,3 +45,6 @@ dump.rdb
 # Ignore sphinx db and secret files
 config/*.sphinx.conf
 db/sphinx
+
+# Ignore coverage folder
+/coverage/*
