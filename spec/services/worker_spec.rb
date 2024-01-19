@@ -65,27 +65,27 @@ RSpec.describe Services::Worker do
 
   it 'call specific service if found specific worker task' do
     `cp spec/files/partners_utf.yml.gz #{JSON.parse(task_unzip_simple.data)['archive_name']}`
-    expect(Services::PartnerDBUnzip).to receive(:new).with(task_unzip_simple).and_call_original
+    expect(Services::PartnerDB::Unzip).to receive(:new).with(task_unzip_simple).and_call_original
     expect{ Services::Worker.new.call }.to change(WorkerTask, :count).by(-1)
     File.delete(JSON.parse(task_unzip_simple.data)['file_name'])
   end
 
   it 'call request_d_b_fill service to create tasks to populate db if no book found' do
-    expect(Services::WorkerTaskRequestDBFill).to receive(:new)
+    expect(Services::WorkerTasks::RequestDBFill).to receive(:new)
     Services::Worker.new.call
   end
 
   # Для получения некоторых данных вместо сервисов удаленного парсинга используется сервис генерации данных
   # it 'call request_remote_parse_goals_fill service if no remote parse goals found' do
   #   book
-  #   expect(Services::WorkerTaskRequestRemoteParseGoalsFill).to receive(:new)
+  #   expect(Services::WorkerTasks::RequestRemoteParseGoalsFill).to receive(:new)
   #   Services::Worker.new.call
   # end
 
   # it 'call request_remote_parse_tasks_generate service when its time to generate remote parse tasks' do
   #   book
   #   remote_parse_goal_with_actual_date
-  #   expect(Services::WorkerTaskRequestRemoteParseTasksGenerate).to receive(:new)
+  #   expect(Services::WorkerTasks::RequestRemoteParseTasksGenerate).to receive(:new)
   #   Services::Worker.new.call
   # end
 

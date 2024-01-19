@@ -93,7 +93,7 @@ module Services
 
     def check_tasks
       if worker_have_tasks?
-        check_callback_state(Services::WorkerTaskExecute.new.call)
+        check_callback_state(Services::WorkerTasks::Execute.new.call)
       elsif app_d_b_empty?
         app_d_b_fill
       # Т.к. книжные сайты агрессивно препятствуют парсингу, то 'живой' сбор данных не используется
@@ -161,7 +161,7 @@ module Services
     end
 
     def app_d_b_fill
-      check_callback_state(Services::WorkerTaskRequestDBFill.new.call)
+      check_callback_state(Services::WorkerTasks::RequestDBFill.new.call)
     end
 
     def remote_parse_goals_empty?
@@ -169,7 +169,7 @@ module Services
     end
 
     def remote_parse_goals_fill
-      check_callback_state(Services::WorkerTaskRequestRemoteParseGoalsFill.new.call)
+      check_callback_state(Services::WorkerTasks::RequestRemoteParseGoalsFill.new.call)
     end
 
     def its_time_for_generate_remote_parsing_tasks?
@@ -177,7 +177,7 @@ module Services
     end
 
     def generate_remote_parsing_tasks
-      check_callback_state(Services::WorkerTaskRequestRemoteParseTasksGenerate.new.call)
+      check_callback_state(Services::WorkerTasks::RequestRemoteParseTasksGenerate.new.call)
     end
 
     def ratings_empty?

@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe Services::WorkerTaskCreate do
+RSpec.describe Services::WorkerTasks::Create do
   let(:book) { create(:book, :frontier) }
 
   it 'creates partner_db_download_simple task with data' do

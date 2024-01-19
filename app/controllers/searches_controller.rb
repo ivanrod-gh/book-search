@@ -7,17 +7,17 @@ class SearchesController < ApplicationController
 
   def full_text
     authorize! :full_text, Search
-    render json: Services::SearchFullText.new(params[:query]).call
+    render json: Services::Searches::FullText.new(params[:query]).call
   end
 
   def with_filters
     authorize! :with_filters, Search
-    Services::SearchWithFiltersRequestSave.new(params, current_user).call
-    render json: Services::SearchWithFilters.new(params, current_user).call
+    Services::Searches::WithFiltersParametersSave.new(params, current_user).call
+    render json: Services::Searches::WithFilters.new(params, current_user).call
   end
 
   def retrieve_old_search_parameters
     authorize! :retrieve_old_search_parameters, Search
-    render json: Services::SearchWithFiltersRequestRetrieve.new(params, current_user).call
+    render json: Services::Searches::WithFiltersParametersRetrieve.new(params, current_user).call
   end
 end

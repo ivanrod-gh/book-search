@@ -5,11 +5,11 @@ RSpec.describe SearchesController, type: :controller do
 
   describe 'POST #full_text' do
     let(:query) { 'some_query%' }
-    let(:service) { double('Services::SearchFullText') }
+    let(:service) { double('Services::Searches::FullText') }
     let(:respond) { double("{test: 'results'}") }
 
-    it 'calls SearchFullText service and renders respond as JSON' do
-      expect(Services::SearchFullText).to receive(:new).with(query).and_return(service)
+    it 'calls Searches::FullText service and renders respond as JSON' do
+      expect(Services::Searches::FullText).to receive(:new).with(query).and_return(service)
       expect(service).to receive(:call).and_return(respond)
       post :full_text, params: { query: query }, format: :js
       expect(response.body).to eq respond.to_json
@@ -18,7 +18,7 @@ RSpec.describe SearchesController, type: :controller do
 
   describe 'POST #search_with_filters' do
     let(:parameter) { 'value' }
-    let(:service) { double('Services::SearchWithFilters') }
+    let(:service) { double('Services::Searches::WithFilters') }
     let(:controller_params) do
       ActionController::Parameters.new(
         "parameter"=>"value",
@@ -30,21 +30,21 @@ RSpec.describe SearchesController, type: :controller do
     let(:respond) { double("{test: 'results'}") }
 
     describe 'then called from unauthorized user' do
-      it 'calls SearchWithFiltersRequestSave with current_user = nil' do
+      it 'calls Searches::WithFiltersParametersSave with current_user = nil' do
         allow(service).to receive(:call)
-        expect(Services::SearchWithFiltersRequestSave).to receive(:new).with(controller_params, nil)
+        expect(Services::Searches::WithFiltersParametersSave).to receive(:new).with(controller_params, nil)
                                                                        .and_return(service)
         post :with_filters, params: { parameter: parameter }, format: :js
       end
 
-      it 'calls SearchWithFilters with current_user = nil' do
+      it 'calls Searches::WithFilters with current_user = nil' do
         allow(service).to receive(:call)
-        expect(Services::SearchWithFilters).to receive(:new).with(controller_params, nil).and_return(service)
+        expect(Services::Searches::WithFilters).to receive(:new).with(controller_params, nil).and_return(service)
         post :with_filters, params: { parameter: parameter }, format: :js
       end
 
-      it 'calls SearchWithFilters service and renders respond as JSON' do
-        expect(Services::SearchWithFilters).to receive(:new).with(controller_params, nil).and_return(service)
+      it 'calls Searches::WithFilters service and renders respond as JSON' do
+        expect(Services::Searches::WithFilters).to receive(:new).with(controller_params, nil).and_return(service)
         expect(service).to receive(:call).and_return(respond)
         post :with_filters, params: { parameter: parameter }, format: :js
         expect(response.body).to eq respond.to_json
@@ -54,22 +54,22 @@ RSpec.describe SearchesController, type: :controller do
     describe 'then called from authorized user' do
       before { login(user) }
 
-      it 'calls SearchWithFiltersRequestSave current_user = user-caller' do
+      it 'calls Searches::WithFiltersParametersSave current_user = user-caller' do
         allow(service).to receive(:call)
-        expect(Services::SearchWithFiltersRequestSave).to receive(:new).with(controller_params, user)
+        expect(Services::Searches::WithFiltersParametersSave).to receive(:new).with(controller_params, user)
                                                                        .and_return(service)
         post :with_filters, params: { parameter: parameter }, format: :js
       end
 
-      it 'calls SearchWithFilters with current_user = user-caller' do
+      it 'calls Searches::WithFilters with current_user = user-caller' do
         allow(service).to receive(:call)
-        expect(Services::SearchWithFilters).to receive(:new).with(controller_params, user).and_return(service)
+        expect(Services::Searches::WithFilters).to receive(:new).with(controller_params, user).and_return(service)
         post :with_filters, params: { parameter: parameter }, format: :js
       end
 
-      it 'calls SearchWithFilters service with current_user and renders respond as JSON' do
+      it 'calls Searches::WithFilters service with current_user and renders respond as JSON' do
         allow(service).to receive(:call)
-        expect(Services::SearchWithFilters).to receive(:new).with(controller_params, user).and_return(service)
+        expect(Services::Searches::WithFilters).to receive(:new).with(controller_params, user).and_return(service)
         expect(service).to receive(:call).and_return(respond)
         post :with_filters, params: { parameter: parameter }, format: :js
         expect(response.body).to eq respond.to_json
@@ -79,7 +79,7 @@ RSpec.describe SearchesController, type: :controller do
 
   describe 'POST #retrieve_old_search_parameters' do
     let(:parameter) { 'value' }
-    let(:service) { double('Services::SearchWithFiltersRequestRetrieve') }
+    let(:service) { double('Services::Searches::WithFiltersParametersRetrieve') }
     let(:controller_params) do
       ActionController::Parameters.new(
         "parameter"=>"value",
@@ -92,10 +92,10 @@ RSpec.describe SearchesController, type: :controller do
     describe 'then called from authorized user' do
       before { login(user) }
 
-      it 'calls SearchWithFiltersRequestRetrieve with current_user = user-caller' do
+      it 'calls Searches::WithFiltersParametersRetrieve with current_user = user-caller' do
         allow(service).to receive(:call)
-        expect(Services::SearchWithFiltersRequestRetrieve).to receive(:new).with(controller_params, user)
-                                                                           .and_return(service)
+        expect(Services::Searches::WithFiltersParametersRetrieve).to receive(:new).with(controller_params, user)
+          .and_return(service)
         post :retrieve_old_search_parameters, params: { parameter: parameter }, format: :js
       end
     end
