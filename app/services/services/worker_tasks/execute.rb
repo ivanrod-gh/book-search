@@ -8,8 +8,8 @@ module Services
         'partner_db_download_detailed' => 'PartnerDB::Download',
         'partner_db_unzip_simple' => 'PartnerDB::Unzip',
         'partner_db_unzip_detailed' => 'PartnerDB::Unzip',
-        'partner_db_parse_segments_simple' => 'PartnerDB::Parse',
-        'partner_db_parse_segments_detailed' => 'PartnerDB::Parse',
+        'partner_db_parse_segments_simple' => 'PartnerDB::Parse::Execute',
+        'partner_db_parse_segments_detailed' => 'PartnerDB::Parse::Execute',
         'remote_page_parse' => 'RemotePageParse'
       }.freeze
 
