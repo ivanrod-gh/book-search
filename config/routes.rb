@@ -23,5 +23,13 @@ Rails.application.routes.draw do
   delete 'user_books/destroy_all'
   get 'user_books/send_to_mail'
 
+  namespace :api do
+    namespace :v1 do
+      resources :profiles, only: [] do
+        get :me, on: :collection
+      end
+    end
+  end
+
   get '*unmatched_route', to: 'application#not_found'
 end

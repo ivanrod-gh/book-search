@@ -72,6 +72,7 @@ RSpec.configure do |config|
   config.include FeatureHelpers, type: :feature
   config.include ControllerHelpers, type: :controller
   config.include WaitForAjax, type: :feature
+  config.include ApiHelpers, type: :request
 
   Capybara.default_max_wait_time = 5
   Capybara.javascript_driver = :selenium_chrome_headless
