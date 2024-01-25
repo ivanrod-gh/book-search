@@ -53,6 +53,8 @@ gem 'omniauth-github'
 gem 'sidekiq', '~> 7.0.0'
 # Unicorn application server
 gem 'unicorn', '~> 6.0.0'
+# API authorization
+gem 'doorkeeper', '~> 5.6.6'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
