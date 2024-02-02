@@ -16,6 +16,8 @@ Rails.application.routes.draw do
       get :profile
       get :books_shelf
       post :books_show
+      get :manage_api
+      post :access_token
     end
   end
   post 'user_books/create'

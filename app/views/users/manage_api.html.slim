@@ -1,0 +1,45 @@
+h2 align='center' style='font-weight: bold;'
+  |Управление доступом к API
+div.access-token-data
+  - if @access_token
+    div class="row justify-content-center pt-1 pb-1"
+      div class="col-md-10 col-sm-12"
+        div class="card p-2"
+          div class="row"
+            div class="col-md-3 col-sm-12"
+              |Код доступа:
+            div class="access-token-itself col-md-9 col-sm-12"
+              - if @access_token
+                div
+                  = @access_token.token
+              - else
+                div
+                  |---
+            div class="col-md-3 col-sm-12"
+              |Просрочен:
+            div class="access-token-expiration col-md-9 col-sm-12"
+              - if @access_token.expired?
+                div style="color: red;"
+                  |да
+              - else
+                div style="color: green;"
+                  |нет
+            div class="col-md-3 col-sm-12"
+              |Действует еще:
+            div class="access-token-valid-for col-md-9 col-sm-12"
+              - valid_for = (@access_token.expires_in_seconds.to_f / 60).ceil
+              div
+                - if valid_for.zero?
+                  div style="color: red;"
+                    |---
+                - else
+                  span style="color: green;"
+                    = valid_for
+                  span
+                    |  минут(ы)
+div class="row justify-content-center pt-1 pb-1"
+  div class="col-md-10 col-sm-12"
+    div class="card border-primary"
+      div class='ms-1 me-1 mb-1'
+        div class="card-body" align="center"
+          = link_to 'Запросить код доступа', access_token_users_path, method: :post
