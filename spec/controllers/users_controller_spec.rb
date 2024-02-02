@@ -5,7 +5,7 @@ RSpec.describe UsersController, type: :controller do
 
   describe 'POST #books_show' do
     let(:parameter) { 'value' }
-    let(:service) { double('Services::UserBooksShow') }
+    let(:service) { double('Services::Users::BooksShow') }
     let(:controller_params) do
       ActionController::Parameters.new(
         "parameter"=>"value",
@@ -16,22 +16,40 @@ RSpec.describe UsersController, type: :controller do
     end
     let(:respond) { double("{test: 'results'}") }
 
-    describe 'then called from authorized user' do
+    context 'called from authorized user' do
       before { login(user) }
 
-      it 'calls UserBooksShow with current_user = user-caller' do
+      it 'calls BooksShow service with current_user = user-caller' do
         allow(service).to receive(:call)
-        expect(Services::UserBooksShow).to receive(:new).with(controller_params, user)
-                                                                           .and_return(service)
+        expect(Services::Users::BooksShow).to receive(:new).with(controller_params, user).and_return(service)
         post :books_show, params: { parameter: parameter }, format: :js
       end
 
-      it 'calls UserBooksShow service with current_user and renders respond as JSON' do
+      it 'calls BooksShow service with current_user and renders respond as JSON' do
         allow(service).to receive(:call)
-        expect(Services::UserBooksShow).to receive(:new).with(controller_params, user).and_return(service)
+        expect(Services::Users::BooksShow).to receive(:new).with(controller_params, user).and_return(service)
         expect(service).to receive(:call).and_return(respond)
         post :books_show, params: { parameter: parameter }, format: :js
         expect(response.body).to eq respond.to_json
+      end
+    end
+  end
+
+  describe 'POST #access_token' do
+    let(:service) { double('Services::Users::AccessToken') }
+
+    context 'called from authorized user' do
+      before { login(user) }
+
+      it 'calls AccessToken service with current_user = user-caller' do
+        allow(service).to receive(:call)
+        expect(Services::Users::AccessToken).to receive(:new).with(user).and_return(service)
+        post :access_token
+      end
+
+      it 'redirect to manage api users path' do
+        post :access_token
+        expect(response).to redirect_to manage_api_users_path
       end
     end
   end

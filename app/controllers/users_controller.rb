@@ -11,6 +11,17 @@ class UsersController < ApplicationController
 
   def books_show
     authorize! :books_show, User
-    render json: Services::UserBooksShow.new(params, current_user).call
+    render json: Services::Users::BooksShow.new(params, current_user).call
+  end
+
+  def manage_api
+    authorize! :manage_api, User
+    @access_token = Doorkeeper::AccessToken.find_by(resource_owner_id: current_user.id)
+  end
+
+  def access_token
+    authorize! :access_token, User
+    Services::Users::AccessToken.new(current_user).call
+    redirect_to manage_api_users_path
   end
 end

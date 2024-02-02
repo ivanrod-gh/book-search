@@ -23,6 +23,8 @@ RSpec.describe Ability, type: :model do
     it { should     be_able_to :profile, User }
     it { should     be_able_to :books_shelf, User }
     it { should     be_able_to :books_show, User }
+    it { should     be_able_to :manage_api, User }
+    it { should     be_able_to :access_token, User }
     it { should     be_able_to :create, UserBook }
     it { should     be_able_to :destroy, UserBook }
     it { should     be_able_to :destroy_all, UserBook }
