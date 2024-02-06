@@ -30,6 +30,9 @@ Rails.application.routes.draw do
       resources :profiles, only: [] do
         get :me, on: :collection
       end
+      resources :searches, only: [] do
+        get :full_text, on: :collection
+      end
     end
   end
 
