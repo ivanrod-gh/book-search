@@ -9,7 +9,7 @@ module Services
       MAXIMUM_FULL_TEXT_AUTHORS_SEARCH_RESULTS_COUNT = 25
 
       def initialize(query)
-        @query = query
+        @query = query || ''
       end
 
       def call
