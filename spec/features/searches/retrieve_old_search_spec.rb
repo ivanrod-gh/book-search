@@ -10,8 +10,8 @@ feature 'User can use old searches as new seach parameters', %q{
     book = create(:book, name: 'with_genre')
     BookGenre.create(book: book, genre: md_genre)
   end
-  given(:first_added_book) { create(:book, :date_added_1998, name: 'first_added') }
-  given(:last_added_book) { create(:book, :date_added_2025, name: 'last_added') }
+  given(:first_added_book) { create(:book, :date_added_1987, name: 'first_added') }
+  given(:last_added_book) { create(:book, :date_added_2123, name: 'last_added') }
   given(:with_litres_rating_book) do
     book = create(:book, name: 'litres_rating')
     BookRating.create(book_id: book.id, rating: Rating::INSTANCES['litres'], average: 8, votes_count: 10)

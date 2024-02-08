@@ -12,8 +12,8 @@ feature 'User can remove all books information from books shelf', %q{
     BookGenre.create(book: book, genre: md_genre)
     book
   end
-  given(:first_added_book) { create(:book, :date_added_1998, name: 'first_added') }
-  given(:last_added_book) { create(:book, :date_added_2025, name: 'last_added') }
+  given(:first_added_book) { create(:book, :date_added_1987, name: 'first_added') }
+  given(:last_added_book) { create(:book, :date_added_2123, name: 'last_added') }
   given(:with_genre_user_book) { create(:user_book, user: user, book: with_genre_book) }
   given(:first_added_user_book) { create(:user_book, user: user, book: first_added_book) }
   given(:last_added_user_book) { create(:user_book, user: user, book: last_added_book) }

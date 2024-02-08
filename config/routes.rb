@@ -32,6 +32,7 @@ Rails.application.routes.draw do
       end
       resources :searches, only: [] do
         get :full_text, on: :collection
+        get :with_filters, on: :collection
       end
     end
   end

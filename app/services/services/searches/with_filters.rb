@@ -5,9 +5,10 @@ module Services
     class WithFilters
       PER_PAGE = 25
 
-      def initialize(params, current_user = nil)
+      def initialize(params, current_user = nil, api_call = nil)
         @params = params
         @current_user = current_user
+        @browser_call = api_call.nil?
       end
 
       def call
@@ -22,8 +23,7 @@ module Services
         return @results unless genre_exist? && dates_acceptable?
 
         collection = collect_books_with_filters
-        inject_in_results(collection)
-        @params[:page].blank? ? inject_params_data_in_results : inject_params_data_in_results('page_only')
+        inject_data_in_results(collection)
         serialize_collection(collection)
         @results
       end
@@ -48,7 +48,8 @@ module Services
       end
 
       def start_date_added_acceptable?
-        return true unless @params[:start_date_filter] == '1'
+        return true unless @params[:start_date_filter] == '1' && @params['start_date_added(1i)'].to_i.positive? &&
+                           @params['start_date_added(2i)'].to_i.positive?
 
         @search_parameters['start_date_added'] = Date.new(
           @params['start_date_added(1i)'].to_i, @params['start_date_added(2i)'].to_i, 1
@@ -61,7 +62,8 @@ module Services
       end
 
       def end_date_added_acceptable?
-        return true unless @params[:end_date_filter] == '1'
+        return true unless @params[:end_date_filter] == '1' && @params['end_date_added(1i)'].to_i.positive? &&
+                           @params['end_date_added(2i)'].to_i.positive?
 
         @search_parameters['end_date_added'] = Date.new(
           @params['end_date_added(1i)'].to_i, @params['end_date_added(2i)'].to_i, -1
@@ -143,18 +145,21 @@ module Services
         collection.where('comments_count >= ?', @params[:comments_count].to_i)
       end
 
-      def inject_in_results(collection)
-        inject_collection_data_in_results(collection) if @params[:page].blank?
-        inject_user_data_in_results
+      def inject_data_in_results(collection)
+        collection_data(collection) if @params[:page].blank?
+        return unless @browser_call
+
+        user_data
+        @params[:page].blank? ? params_data : params_data('page_only')
       end
 
-      def inject_collection_data_in_results(collection)
+      def collection_data(collection)
         @results[:results] ||= {}
         @results[:results][:count] = collection.count
         @results[:results][:per_page] = PER_PAGE
       end
 
-      def inject_user_data_in_results
+      def user_data
         @results[:user] ||= {}
         return unless @current_user
 
@@ -189,11 +194,11 @@ module Services
         (number = string.to_i) >= 0 ? number : 0
       end
 
-      def inject_params_data_in_results(option = 'all')
+      def params_data(option = 'all')
         @results[:params] ||= {}
         params_hash = {}
         @params.each do |pair|
-          next if pair[0] =~ /authenticity_token|commit|controller|action/
+          next if pair[0] =~ /authenticity_token|access_token|commit|controller|action|format/
 
           next if option == 'page_only' && pair[0] !~ /^page$/
 
