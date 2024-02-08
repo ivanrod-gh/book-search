@@ -15,9 +15,9 @@ RSpec.describe Book, type: :model do
       }
     end
     let(:books_with_dates_added) do
-      create(:book, :date_added_1998)
-      create(:book, :date_added_2009)
-      create(:book, :date_added_2025)
+      create(:book, :date_added_1987)
+      create(:book, :date_added_2111)
+      create(:book, :date_added_2123)
     end
     let(:clear_book_dates_added_list) { Book.dates_added_list = nil }
 

@@ -2,8 +2,20 @@ require 'rails_helper'
 
 RSpec.describe Services::Searches::WithFilters do
   let(:params_with_genre) { {genre_filter: '1', genre_int_id: 'invalid'} }
-  let(:params_with_start_date_added) { { 'start_date_filter': '1', 'start_date_added(1i)': 'invalid' } }
-  let(:params_with_end_date_added) { { 'end_date_filter': '1', 'end_date_added(1i)': 'invalid' } }
+  let(:params_with_start_date_added) do
+    {
+      'start_date_filter': '1',
+      'start_date_added(2i)' => '99',
+      'start_date_added(1i)' => '1'
+    } 
+  end
+  let(:params_with_end_date_added) do
+    {
+      'end_date_filter': '1',
+      'end_date_added(2i)' => '99',
+      'end_date_added(1i)' => '1'
+    } 
+  end
   let(:warning_genre) { {"warning"=>{"genre"=>"does_not_exist"}} }
   let(:warning_start_date_added) { {"warning"=>{"date_added_data"=>{"start"=>"invalid"}}} }
   let(:warning_end_date_added) { {"warning"=>{"date_added_data"=>{"end"=>"invalid"}}} }
@@ -57,7 +69,7 @@ RSpec.describe Services::Searches::WithFilters do
     expect((Services::Searches::WithFilters.new({page: 1}).call).key?(:results)).to eq false
   end
 
-  it 'respond with full params data if request has no page query' do
+  it 'respond with full params data if request has nill page query' do
     expect((Services::Searches::WithFilters.new(params_without_page).call)[:params]).to eq params_without_page
   end
 
