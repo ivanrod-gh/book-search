@@ -56,8 +56,8 @@ describe 'Searches API', type: :request do
 
       it 'respond with no user data and no params data' do
         get '/api/v1/searches/with_filters', params: { access_token: access_token.token }, headers: headers
-        expect(JSON.parse(response.body).key?('user')).to eq false
-        expect(JSON.parse(response.body).key?('params')).to eq false
+        expect(json.key?('user')).to eq false
+        expect(json.key?('params')).to eq false
       end
 
       it 'respond with proper book when filter applied' do
@@ -73,8 +73,8 @@ describe 'Searches API', type: :request do
             'end_date_added(1i)': '2115',
           },
           headers: headers
-        expect(JSON.parse(response.body)['books'].count).to eq 1
-        expect(JSON.parse(response.body)['books'][0]['book']['name']).to eq second_added_book.name
+        expect(json['books'].count).to eq 1
+        expect(json['books'][0]['book']['name']).to eq second_added_book.name
       end
     end
   end
