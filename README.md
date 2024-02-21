@@ -296,3 +296,30 @@ bundle exec bin/rails runner -e production LimitedWorkerJob.perform_now
 После вызова сервис Worker скачает, пропарсит и удалит "партнерские" БД (размер одной скачанной и распакованной "партнерской" БД может быть более 3.5 ГБ), недостающие данные будут сгенерированы.
 
 Для полноценной работы приложения также должна быть настроена БД, в credentials указаны необходимые данные для Gmail, GitHub и запущены Sphinx, Redis, Sidekiq.
+
+Пример credentials.yml.enc:
+```
+secret_key_base: **********
+
+development:
+  gmail:
+    login: '**********'
+    app_password: '**********'
+  github:
+    app_id: '**********'
+    app_secret: '**********'
+
+test:
+  github:
+    app_id: '**********'
+    app_secret: '**********'
+
+production:
+  gmail:
+    login: '**********'
+    app_password: '**********'
+  github:
+    app_id: '**********'
+    app_secret: '**********'
+```
+, где ********** - соответствующие данные.
